@@ -1,24 +1,18 @@
 import 'package:flutter/material.dart';
 
+import 'package:get/get.dart';
+
+import 'app/modules/spalsh/bindings/spalsh_binding.dart';
+import 'app/routes/app_pages.dart';
+
 void main() {
-  runApp(const MyApp());
-}
-
-class MyApp extends StatelessWidget {
-  const MyApp({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return const MaterialApp(
+  runApp(
+    GetMaterialApp(
+      title: "Application",
       debugShowCheckedModeBanner: false,
-      home: Scaffold(
-        body: Center(
-          child: Text(
-            'Hello',
-            style: TextStyle(fontSize: 32),
-          ),
-        ),
-      ),
-    );
-  }
+      initialRoute: AppPages.INITIAL,
+      getPages: AppPages.routes,
+      initialBinding: SpalshBinding(),
+    ),
+  );
 }
