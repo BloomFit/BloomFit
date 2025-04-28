@@ -12,7 +12,7 @@ void main() {
       debugShowCheckedModeBanner: false,
       initialRoute: AppPages.INITIAL,
       getPages: AppPages.routes,
-      initialBinding: SpalshBinding(),
+      // initialBinding: SpalshBinding(),
     ),
   );
 }
