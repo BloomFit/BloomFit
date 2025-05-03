@@ -119,7 +119,7 @@ class ProfilePageView extends GetView<ProfilePageController> {
                           style: GoogleFonts.dmSans(
                             fontSize: 11,
                             fontWeight: FontWeight.normal,
-                            color: AppColorsDark.teksPrimary, // Warna teks sesuai tema
+                            color: AppColorsDark.teksPrimary,
                           ),
                         ),
                       ),

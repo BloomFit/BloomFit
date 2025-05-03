@@ -176,7 +176,7 @@ class EditProfilePageView extends GetView<EditProfilePageController> {
                 child: Padding(
                   padding: const EdgeInsets.all(24),
                   child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start, // Menambahkan alignment untuk teks dan form
+                    crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       // Teks Username
                       Text(
@@ -188,9 +188,8 @@ class EditProfilePageView extends GetView<EditProfilePageController> {
                         ),
                       ),
 
-                      const SizedBox(height: 16), // Jarak antara teks username dan form input
+                      const SizedBox(height: 16),
 
-                      // Form input untuk mengganti username
                       TextFormField(
                         decoration: InputDecoration(
                           filled: true,
@@ -199,14 +198,14 @@ class EditProfilePageView extends GetView<EditProfilePageController> {
                           hintStyle: TextStyle(color: Colors.grey[600]),
                           border: const UnderlineInputBorder(
                             borderSide: BorderSide(
-                              color: AppColorsDark.teksThird, // Warna garis bawah
-                              width: 2.0, // Lebar garis bawah
+                              color: AppColorsDark.teksThird,
+                              width: 2.0,
                             ),
                           ),
                           focusedBorder: const UnderlineInputBorder(
                             borderSide: BorderSide(
-                              color: AppColorsDark.teksThird, // Warna garis bawah saat fokus
-                              width: 2.0, // Lebar garis saat fokus
+                              color: AppColorsDark.teksThird,
+                              width: 2.0,
                             ),
                           ),
                           contentPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
@@ -216,7 +215,7 @@ class EditProfilePageView extends GetView<EditProfilePageController> {
                           fontSize: 16,
                         ),
                         onChanged: (value) {
-                          // Menangani perubahan input username
+
                         },
                       ),
                     ],
