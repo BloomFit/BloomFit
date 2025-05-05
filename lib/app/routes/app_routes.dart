@@ -10,6 +10,8 @@ abstract class Routes {
   static const SPALSH = _Paths.SPALSH;
   static const EDIT_PROFILE_PAGE = _Paths.EDIT_PROFILE_PAGE;
   static const VIDEO = _Paths.VIDEO;
+  static const ARTICLES = _Paths.ARTICLES;
+  static const DETECTION_PAGE = _Paths.DETECTION_PAGE;
 }
 
 abstract class _Paths {
@@ -21,4 +23,6 @@ abstract class _Paths {
   static const SPALSH = '/spalsh';
   static const EDIT_PROFILE_PAGE = '/edit-profile-page';
   static const VIDEO = '/video';
+  static const ARTICLES = '/articles';
+  static const DETECTION_PAGE = '/detection-page';
 }

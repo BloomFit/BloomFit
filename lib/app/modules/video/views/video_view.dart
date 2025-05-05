@@ -3,8 +3,10 @@ import 'package:get/get.dart';
 import '../../../constants/colors.dart';
 import '../controllers/video_controller.dart';
 
-class VideoView extends GetView<VideoController> {
-  const VideoView({Key? key}) : super(key: key);
+class VideoView extends StatelessWidget {
+  final VideoController controller = Get.put(VideoController());
+
+  VideoView({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -12,8 +14,7 @@ class VideoView extends GetView<VideoController> {
       backgroundColor: AppColorsDark.fourth,
       body: SafeArea(
         child: Obx(() {
-          final isLoading = controller.isLoading.value;
-          if (isLoading) {
+          if (controller.isLoading.value) {
             return _buildLoadingView();
           } else {
             return _buildMainContent();
@@ -58,7 +59,7 @@ class VideoView extends GetView<VideoController> {
 
   Widget _buildAppBar() {
     return PreferredSize(
-      preferredSize: Size.fromHeight(80),  // Set height of the AppBar
+      preferredSize: const Size.fromHeight(80),
       child: Container(
         padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 15),
         decoration: BoxDecoration(

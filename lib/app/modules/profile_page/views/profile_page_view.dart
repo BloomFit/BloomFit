@@ -11,7 +11,7 @@ class ProfilePageView extends GetView<ProfilePageController> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: AppColorsDark.bg,
+      backgroundColor: AppColorsDark.fourth,
       body: Center(
         child: SafeArea(
           child: Column(
@@ -32,7 +32,7 @@ class ProfilePageView extends GetView<ProfilePageController> {
                       child: Container(
                         padding: const EdgeInsets.all(8),
                         decoration: BoxDecoration(
-                          color: AppColorsDark.bg,
+                          color: AppColorsDark.aksen,
                           borderRadius: BorderRadius.circular(8),
                           boxShadow: const [
                             BoxShadow(
@@ -79,7 +79,7 @@ class ProfilePageView extends GetView<ProfilePageController> {
                     padding: const EdgeInsets.symmetric(horizontal: 16),
                     child: Container(
                       decoration: BoxDecoration(
-                        color: AppColorsDark.bg,
+                        color: AppColorsDark.aksen,
                         borderRadius: BorderRadius.circular(16),
                         boxShadow: const [
                           BoxShadow(
@@ -119,7 +119,7 @@ class ProfilePageView extends GetView<ProfilePageController> {
                     child: Center(
                       child: CircleAvatar(
                         radius: 50,
-                        backgroundColor: Colors.white,
+                        backgroundColor: Color(0xFFE91E63),
                         child: CircleAvatar(
                           radius: 50,
                           backgroundImage: AssetImage('assets/images/gweh.png'),
@@ -139,7 +139,7 @@ class ProfilePageView extends GetView<ProfilePageController> {
                       child: Container(
                         padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 4),
                         decoration: BoxDecoration(
-                          color: AppColorsDark.bg,
+                          color: AppColorsDark.aksen,
                           borderRadius: BorderRadius.circular(8),
                           boxShadow: const [
                             BoxShadow(
@@ -175,7 +175,7 @@ class ProfilePageView extends GetView<ProfilePageController> {
                 height: 160,
                 margin: const EdgeInsets.symmetric(horizontal: 16),
                 decoration: BoxDecoration(
-                  color: AppColorsDark.bg,
+                  color: AppColorsDark.aksen,
                   borderRadius: BorderRadius.circular(16),
                   boxShadow: const [
                     BoxShadow(
@@ -214,7 +214,7 @@ class ProfilePageView extends GetView<ProfilePageController> {
                 height: 160,
                 margin: const EdgeInsets.symmetric(horizontal: 16),
                 decoration: BoxDecoration(
-                  color: AppColorsDark.bg,
+                  color: AppColorsDark.aksen,
                   borderRadius: BorderRadius.circular(16),
                   boxShadow: const [
                     BoxShadow(

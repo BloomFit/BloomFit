@@ -5,9 +5,9 @@ import '../controllers/spalsh_controller.dart';
 class SpalshBinding extends Bindings {
   @override
   void dependencies() {
-    // Get.lazyPut<SpalshController>(
-    //   () => SpalshController(),
-    // );
+    Get.lazyPut<SpalshController>(
+      () => SpalshController(),
+    );
     Get.put(SpalshController());
   }
 }

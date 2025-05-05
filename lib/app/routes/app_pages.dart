@@ -1,5 +1,9 @@
 import 'package:get/get.dart';
 
+import '../modules/articles/bindings/articles_binding.dart';
+import '../modules/articles/views/articles_view.dart';
+import '../modules/detection_page/bindings/detection_page_binding.dart';
+import '../modules/detection_page/views/detection_page_view.dart';
 import '../modules/edit_profile_page/bindings/edit_profile_page_binding.dart';
 import '../modules/edit_profile_page/views/edit_profile_page_view.dart';
 import '../modules/home/bindings/home_binding.dart';
@@ -20,9 +24,14 @@ part 'app_routes.dart';
 class AppPages {
   AppPages._();
 
-  static const INITIAL = Routes.PROFILE_PAGE;
+  static const INITIAL = Routes.SPALSH;
 
   static final routes = [
+    GetPage(
+      name: _Paths.SPALSH,
+      page: () => const SafeBumpApp(),
+      binding: SpalshBinding(),
+    ),
     GetPage(
       name: _Paths.HOME,
       page: () => const HomeView(),
@@ -43,11 +52,7 @@ class AppPages {
       page: () => const ProfilePageView(),
       binding: ProfilePageBinding(),
     ),
-    GetPage(
-      name: _Paths.SPALSH,
-      page: () => const SpalshView(),
-      binding: SpalshBinding(),
-    ),
+
     GetPage(
       name: _Paths.EDIT_PROFILE_PAGE,
       page: () => const EditProfilePageView(),
@@ -55,8 +60,18 @@ class AppPages {
     ),
     GetPage(
       name: _Paths.VIDEO,
-      page: () =>  VideoView(),
+      page: () => VideoView(),
       binding: VideoBinding(),
+    ),
+    GetPage(
+      name: _Paths.ARTICLES,
+      page: () => const ArticlesView(),
+      binding: ArticlesBinding(),
+    ),
+    GetPage(
+      name: _Paths.DETECTION_PAGE,
+      page: () => const DetectionPageView(),
+      binding: DetectionPageBinding(),
     ),
   ];
 }

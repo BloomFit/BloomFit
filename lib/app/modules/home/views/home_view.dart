@@ -237,10 +237,10 @@ class HomeView extends GetView<HomeController> {
           // Handle medicines menu click
         }),
         _buildMenuItem(Icons.fitness_center, 'Detection', accentColor, () {
-          // Handle detection menu click
+          Get.toNamed(Routes.DETECTION_PAGE);
         }),
         _buildMenuItem(Icons.article, 'Articles', accentColor, () {
-          // Handle articles menu click
+          Get.toNamed(Routes.ARTICLES);
         }),
         _buildMenuItem(Icons.video_library, 'Videos', accentColor, () {
           // Navigate to video page when clicked

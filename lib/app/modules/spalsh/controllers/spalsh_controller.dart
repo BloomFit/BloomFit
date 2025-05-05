@@ -20,10 +20,10 @@ class SpalshController extends GetxController {
       Future.delayed(
           const Duration(
               seconds: 5 ),(){
-            Get.offAllNamed(Routes.HOME);
+            Get.offAllNamed(Routes.SPALSH);
       });
     }else{
-      Get.offAllNamed(Routes.LOGIN_PAGE);
+      Get.offAllNamed(Routes.SPALSH);
     }
   }
 
