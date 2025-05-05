@@ -10,22 +10,54 @@ import '../controllers/login_page_controller.dart';
 
 class LoginPageView extends GetView<LoginPageController> {
   const LoginPageView({super.key});
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: AppColorsDark.primary,
+      backgroundColor: AppColorsDark.fourth,
       body: Column(
         children: [
-          const SizedBox(height: 137),
-          const SizedBox(
-            height: 140,
-            width: 142,
-          ),
           const SizedBox(height: 100),
+
+          // App Logo
+          Container(
+            child: Center(
+              child: Image.asset(
+                'assets/logo/logo2.png',
+              ),
+            ),
+          ),
+
+          // App Name - Safe Bump
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Text(
+                'Bloom ',
+                style: TextStyle(
+                  color: Colors.white,
+                  fontSize: 24,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+              Text(
+                'Fit',
+                style: TextStyle(
+                  color: Color(0xFFEF5B85),
+                  fontSize: 24,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+            ],
+          ),
+
+          const SizedBox(height: 200),
+
+          // Login Form Container
           Expanded(
             child: Container(
               decoration: const BoxDecoration(
-                color: AppColorsDark.primary,
+                color: AppColorsDark.third,
                 borderRadius: BorderRadius.only(
                   topLeft: Radius.circular(45),
                   topRight: Radius.circular(45),
@@ -49,42 +81,34 @@ class LoginPageView extends GetView<LoginPageController> {
                 padding: const EdgeInsets.symmetric(horizontal: 24),
                 child: ListView(
                   children: [
+                    // Email TextField
                     Padding(
-                        padding: const EdgeInsets.only(
-                    top: 40, right: 5, left: 5, bottom: 0),
+                      padding: const EdgeInsets.only(
+                          top: 40, right: 5, left: 5, bottom: 0),
                       child: CustomTextField(
                         key: const Key("email"),
                         hintText: 'Email',
                         // controller: null,
                         leadingIconPath: 'assets/icons/mail.png',
                       ),
-
                     ),
+
+                    // Password TextField
                     Padding(
-                        padding: const EdgeInsets.only(
-                    top: 20, right: 5, left: 5, bottom: 0),
+                      padding: const EdgeInsets.only(
+                          top: 20, right: 5, left: 5, bottom: 0),
                       child: CustomTextField(
                         key: const Key("lock"),
                         hintText: 'Password',
+                        // isPassword: true,
                         // controller: null,
                         leadingIconPath: 'assets/icons/lock.png',
                       ),
-
                     ),
-                    // const SizedBox(height: 20),
 
-                    // const SizedBox(height: 20),
-                    // TextField(
-                    //   obscureText: true,
-                    //   decoration: InputDecoration(
-                    //     hintText: 'Password',
-                    //     prefixIcon: const Icon(Icons.lock),
-                    //     border: OutlineInputBorder(
-                    //       borderRadius: BorderRadius.circular(12),
-                    //     ),
-                    //   ),
-                    // ),
                     const SizedBox(height: 50),
+
+                    // Login Button
                     SizedBox(
                       width: 360,
                       height: 55,
@@ -114,7 +138,7 @@ class LoginPageView extends GetView<LoginPageController> {
                           ),
                           child: Center(
                             child: Text(
-                              "Sign In",
+                              "Login",
                               style: GoogleFonts.dmSans(
                                 fontSize: 14,
                                 fontWeight: FontWeight.w600,
@@ -127,6 +151,8 @@ class LoginPageView extends GetView<LoginPageController> {
                     ),
 
                     const SizedBox(height: 20),
+
+                    // Registration Text
                     Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
@@ -139,19 +165,22 @@ class LoginPageView extends GetView<LoginPageController> {
                         ),
                         TextButton(
                           onPressed: () {
-                            Get.toNamed(Routes.PROFILE_PAGE);
+                            Get.toNamed(Routes.REGISTER_PAGE);
                           },
                           child: Text(
                             'daftar',
                             style: GoogleFonts.dmSans(
                               fontSize: 12,
-                              color: AppColorsDark.third,
+                              color: AppColorsDark.teksPrimary,
                             ),
                           ),
                         ),
                       ],
                     ),
+
                     const SizedBox(height: 52),
+
+                    // Footer Text (empty)
                     Center(
                       child: Text(
                         '',

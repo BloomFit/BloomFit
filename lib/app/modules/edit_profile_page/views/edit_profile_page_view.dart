@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:mobile_app/app/routes/app_pages.dart';
 import '../../../constants/colors.dart';
 import '../controllers/edit_profile_page_controller.dart';
 
@@ -10,19 +11,20 @@ class EditProfilePageView extends GetView<EditProfilePageController> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: AppColorsDark.primary,
+
+      backgroundColor: AppColorsDark.fourth,
       appBar: AppBar(
-        backgroundColor: AppColorsDark.primary,
+        backgroundColor: AppColorsDark.fourth,
         leading: IconButton(
           icon: const Icon(Icons.arrow_back,
-              color: AppColorsDark.teksPrimary),
+              color: AppColorsDark.teksThird),
           iconSize: 16,
-          onPressed: () => Navigator.pop(context),
+          onPressed: () => Get.offAllNamed(Routes.PROFILE_PAGE),
         ),
         title: const Text(
           'Edit Profile',
           style: TextStyle(
-              color: AppColorsDark.teksPrimary,
+              color: AppColorsDark.teksThird,
             fontSize: 16
           ),
         ),
@@ -38,7 +40,7 @@ class EditProfilePageView extends GetView<EditProfilePageController> {
                 height: 220,
                 margin: const EdgeInsets.symmetric(horizontal: 16),
                 decoration: BoxDecoration(
-                  color: AppColorsDark.primary,
+                  color: AppColorsDark.third,
                   borderRadius: BorderRadius.circular(16),
                   boxShadow: const [
                     BoxShadow(
@@ -59,10 +61,10 @@ class EditProfilePageView extends GetView<EditProfilePageController> {
                     children: [
                       const CircleAvatar(
                         radius: 50,
-                        backgroundColor: Colors.white,
+                        backgroundColor: Colors.black,
                         child: CircleAvatar(
                           radius: 50,
-                          backgroundImage: AssetImage('assets/images/avatar.png'),
+                          backgroundImage: AssetImage('assets/images/gweh.png'),
                         ),
                       ),
 
@@ -73,7 +75,7 @@ class EditProfilePageView extends GetView<EditProfilePageController> {
                         children: [
                           Container(
                             decoration: BoxDecoration(
-                              color: AppColorsDark.primary,
+                              color: AppColorsDark.bg,
                               borderRadius: BorderRadius.circular(8),
                               boxShadow: const [
                                 BoxShadow(
@@ -99,7 +101,7 @@ class EditProfilePageView extends GetView<EditProfilePageController> {
                               child: const Text(
                                 'Galeri',
                                 style: TextStyle(
-                                  color: AppColorsDark.teksPrimary,
+                                  color: AppColorsDark.teksThird,
                                   fontSize: 14,
                                   fontWeight: FontWeight.normal,
                                 ),
@@ -109,7 +111,7 @@ class EditProfilePageView extends GetView<EditProfilePageController> {
 
                           Container(
                             decoration: BoxDecoration(
-                              color: AppColorsDark.primary,
+                              color: AppColorsDark.bg,
                               borderRadius: BorderRadius.circular(8),
                               boxShadow: const [
                                 BoxShadow(
@@ -135,7 +137,7 @@ class EditProfilePageView extends GetView<EditProfilePageController> {
                               child: const Text(
                                 'Kamera',
                                 style: TextStyle(
-                                  color: AppColorsDark.third,
+                                  color: AppColorsDark.teksThird,
                                   fontSize: 14,
                                   fontWeight: FontWeight.normal,
                                 ),
@@ -158,7 +160,7 @@ class EditProfilePageView extends GetView<EditProfilePageController> {
                 height: 142,
                 margin: const EdgeInsets.symmetric(horizontal: 16),
                 decoration: BoxDecoration(
-                  color: AppColorsDark.primary,
+                  color: AppColorsDark.third,
                   borderRadius: BorderRadius.circular(16),
                   boxShadow: const [
                     BoxShadow(
@@ -184,7 +186,7 @@ class EditProfilePageView extends GetView<EditProfilePageController> {
                         style: GoogleFonts.dmSans(
                           fontSize: 18,
                           fontWeight: FontWeight.bold,
-                          color: AppColorsDark.teksPrimary,
+                          color: AppColorsDark.teksThird,
                         ),
                       ),
 
@@ -193,9 +195,9 @@ class EditProfilePageView extends GetView<EditProfilePageController> {
                       TextFormField(
                         decoration: InputDecoration(
                           filled: true,
-                          fillColor: AppColorsDark.primary,
-                          hintText: 'Aqnaazmy',
-                          hintStyle: TextStyle(color: Colors.grey[600]),
+                          fillColor: AppColorsDark.bg,
+                          hintText: 'yaseruuuu',
+                          hintStyle: TextStyle(color: Colors.black),
                           border: const UnderlineInputBorder(
                             borderSide: BorderSide(
                               color: AppColorsDark.teksThird,
@@ -232,7 +234,7 @@ class EditProfilePageView extends GetView<EditProfilePageController> {
                 height: 280,
                 margin: const EdgeInsets.symmetric(horizontal: 16),
                 decoration: BoxDecoration(
-                  color: AppColorsDark.primary,
+                  color: AppColorsDark.third,
                   borderRadius: BorderRadius.circular(16),
                   boxShadow: const [
                     BoxShadow(
@@ -262,7 +264,7 @@ class EditProfilePageView extends GetView<EditProfilePageController> {
                             child: Container(
                               decoration: BoxDecoration(
                                 borderRadius: BorderRadius.circular(10),
-                                color: AppColorsDark.primary,
+                                color: AppColorsDark.bg,
                                 boxShadow: const [
                                   BoxShadow(
                                     color: Color(0xFF575757),
@@ -289,7 +291,7 @@ class EditProfilePageView extends GetView<EditProfilePageController> {
                                           height: 20,
                                           child: ColorFiltered(
                                             colorFilter: const ColorFilter.mode(
-                                              AppColorsLight.teksThird,
+                                              AppColorsDark.teksThird,
                                               BlendMode.srcIn,
                                             ),
                                             // child: Image.asset('assets/icons/account.png'),
@@ -298,9 +300,9 @@ class EditProfilePageView extends GetView<EditProfilePageController> {
                                       ),
                                       const SizedBox(width: 12),
                                       const Text(
-                                        'Laki-laki',
+                                        'Trimester 1',
                                         style: TextStyle(
-                                          color: AppColorsLight.teksThird,
+                                          color: AppColorsDark.teksThird,
                                           fontSize: 14,
                                           fontWeight: FontWeight.w500,
                                         ),
@@ -323,7 +325,7 @@ class EditProfilePageView extends GetView<EditProfilePageController> {
                             child: Container(
                               decoration: BoxDecoration(
                                   borderRadius: BorderRadius.circular(10),
-                                  color: AppColorsDark.primary,
+                                  color: AppColorsDark.bg,
                                   boxShadow: const [
                                     BoxShadow(
                                       color: Color(0xFF575757),
@@ -350,7 +352,7 @@ class EditProfilePageView extends GetView<EditProfilePageController> {
                                           height: 20,
                                           child: ColorFiltered(
                                             colorFilter: const ColorFilter.mode(
-                                              AppColorsLight.teksThird,
+                                              AppColorsDark.teksThird,
                                               BlendMode.srcIn,
                                             ),
                                             // child: Image.asset('assets/icons/account.png'),
@@ -359,9 +361,9 @@ class EditProfilePageView extends GetView<EditProfilePageController> {
                                       ),
                                       const SizedBox(width: 12),
                                       const Text(
-                                        '174,0 cm',
+                                        '3 Minggu',
                                         style: TextStyle(
-                                          color: AppColorsLight.teksThird,
+                                          color: AppColorsDark.teksThird,
                                           fontSize: 14,
                                           fontWeight: FontWeight.w500,
                                         ),
@@ -384,7 +386,7 @@ class EditProfilePageView extends GetView<EditProfilePageController> {
                             child: Container(
                               decoration: BoxDecoration(
                                   borderRadius: BorderRadius.circular(10),
-                                  color: AppColorsDark.primary,
+                                  color: AppColorsDark.bg,
                                   boxShadow: const [
                                     BoxShadow(
                                       color: Color(0xFF575757),
@@ -411,7 +413,7 @@ class EditProfilePageView extends GetView<EditProfilePageController> {
                                           height: 20,
                                           child: ColorFiltered(
                                             colorFilter: const ColorFilter.mode(
-                                              AppColorsLight.teksThird,
+                                              AppColorsDark.teksThird,
                                               BlendMode.srcIn,
                                             ),
                                             // child: Image.asset('assets/icons/account.png'),
@@ -420,9 +422,9 @@ class EditProfilePageView extends GetView<EditProfilePageController> {
                                       ),
                                       const SizedBox(width: 12),
                                       const Text(
-                                        '66, kg',
+                                        'Sehat',
                                         style: TextStyle(
-                                          color: AppColorsLight.teksThird,
+                                          color: AppColorsDark.teksThird,
                                           fontSize: 14,
                                           fontWeight: FontWeight.w500,
                                         ),
@@ -445,7 +447,7 @@ class EditProfilePageView extends GetView<EditProfilePageController> {
                             child: Container(
                               decoration: BoxDecoration(
                                   borderRadius: BorderRadius.circular(10),
-                                  color: AppColorsDark.primary,
+                                  color: AppColorsDark.bg,
                                   boxShadow: const [
                                     BoxShadow(
                                       color: Color(0xFF575757),
@@ -472,7 +474,7 @@ class EditProfilePageView extends GetView<EditProfilePageController> {
                                           height: 20,
                                           child: ColorFiltered(
                                             colorFilter: const ColorFilter.mode(
-                                              AppColorsLight.teksThird,
+                                              AppColorsDark.teksThird,
                                               BlendMode.srcIn,
                                             ),
                                             // child: Image.asset('assets/icons/account.png'),
@@ -483,7 +485,7 @@ class EditProfilePageView extends GetView<EditProfilePageController> {
                                       const Text(
                                         '9 Jul 2006',
                                         style: TextStyle(
-                                          color: AppColorsLight.teksThird,
+                                          color: AppColorsDark.teksThird,
                                           fontSize: 14,
                                           fontWeight: FontWeight.w500,
                                         ),
@@ -511,7 +513,7 @@ class EditProfilePageView extends GetView<EditProfilePageController> {
                     child: Container(
                       decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(10),
-                          color: AppColorsDark.primary,
+                          color: AppColorsDark.third,
                           boxShadow: const [
                             BoxShadow(
                               color: Color(0xFF575757),
@@ -531,7 +533,8 @@ class EditProfilePageView extends GetView<EditProfilePageController> {
                           style: GoogleFonts.dmSans(
                             fontSize: 14,
                             fontWeight: FontWeight.w600,
-                            color: AppColorsDark.third,
+                            color: AppColorsDark.teksThird,
+
                           ),
                         ),
                       ),

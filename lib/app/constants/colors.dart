@@ -1,26 +1,19 @@
 import 'dart:ui';
 
-class AppColorsDark {
-  static const Color primary = Color(0xFF27292B);
-  static const Color aksen = Color(0xFF36393B);
-  static const Color third = Color(0xFF41BEE5);
+class AppColorsDark{
+  static const Color primary = Color(0xFFC2185B);
+  static const Color aksen = Color(0xFFE91E63);
+  static const Color third = Color(0xFFEC407A);
+  static const Color fourth = Color(0XFFF48FB1);
+  static const Color bg = Color(0xFFFFFFFF);
 
   static const Color teksPrimary = Color(0xFFFFFFFF);
-  static const Color teksThird = Color(0xFFA2A2A2);
+  static const Color teksThird = Color(0xFF000000);
+
 
   static const Color cardPrimary = Color(0xFFF3F5F7);
   static const Color cardThird = Color(0xFFF3F5F7);
+
 }
 
 
-class AppColorsLight {
-  static const Color primary = Color(0xFFFFFFFF);
-  static const Color aksen = Color(0xFF36393B);
-  static const Color third = Color(0xFF41BEE5);
-
-  static const Color teksPrimary = Color(0xFFFFFFFF);
-  static const Color teksThird = Color(0xFFA2A2A2);
-
-  static const Color cardPrimary = Color(0xFFF3F5F7);
-  static const Color cardThird = Color(0xFFF3F5F7);
-}

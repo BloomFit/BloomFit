@@ -11,20 +11,60 @@ class ProfilePageView extends GetView<ProfilePageController> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: AppColorsDark.primary,
+      backgroundColor: AppColorsDark.bg,
       body: Center(
         child: SafeArea(
           child: Column(
             children: [
               const SizedBox(height: 20),
-              Center(
-                child: Text(
-                  "Profile",
-                  style: GoogleFonts.dmSans(
-                    fontSize: 18,
-                    fontWeight: FontWeight.bold,
-                    color: AppColorsDark.teksPrimary,
-                  ),
+              // App Bar dengan tombol kembali
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 16.0),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    // Tombol kembali
+                    GestureDetector(
+                      onTap: () {
+                        // Navigasi kembali ke halaman Home
+                        Get.offAllNamed(Routes.HOME);
+                      },
+                      child: Container(
+                        padding: const EdgeInsets.all(8),
+                        decoration: BoxDecoration(
+                          color: AppColorsDark.bg,
+                          borderRadius: BorderRadius.circular(8),
+                          boxShadow: const [
+                            BoxShadow(
+                              color: Color(0xFF575757),
+                              offset: Offset(-1, -1),
+                              blurRadius: 2,
+                            ),
+                            BoxShadow(
+                              color: Color(0xFF000000),
+                              offset: Offset(1, 1),
+                              blurRadius: 2,
+                            ),
+                          ],
+                        ),
+                        child: Icon(
+                          Icons.arrow_back,
+                          color: AppColorsDark.teksThird,
+                          size: 20,
+                        ),
+                      ),
+                    ),
+                    Text(
+                      "Profile",
+                      style: GoogleFonts.dmSans(
+                        fontSize: 18,
+                        fontWeight: FontWeight.bold,
+                        color: AppColorsDark.teksThird,
+                      ),
+                    ),
+                    // Placeholder untuk menjaga simetri layout
+                    SizedBox(width: 40),
+                  ],
                 ),
               ),
               const SizedBox(height: 20),
@@ -39,7 +79,7 @@ class ProfilePageView extends GetView<ProfilePageController> {
                     padding: const EdgeInsets.symmetric(horizontal: 16),
                     child: Container(
                       decoration: BoxDecoration(
-                        color: AppColorsDark.primary,
+                        color: AppColorsDark.bg,
                         borderRadius: BorderRadius.circular(16),
                         boxShadow: const [
                           BoxShadow(
@@ -59,11 +99,11 @@ class ProfilePageView extends GetView<ProfilePageController> {
                         child: Column(
                           children: [
                             Text(
-                              'LokiLaufeyson',
+                              'yaseruuu',
                               style: GoogleFonts.dmSans(
                                 fontSize: 18,
                                 fontWeight: FontWeight.w500,
-                                color: AppColorsDark.teksPrimary,
+                                color: AppColorsDark.teksThird,
                               ),
                             ),
                           ],
@@ -82,7 +122,7 @@ class ProfilePageView extends GetView<ProfilePageController> {
                         backgroundColor: Colors.white,
                         child: CircleAvatar(
                           radius: 50,
-                          backgroundImage: AssetImage('assets/images/avatar.png'),
+                          backgroundImage: AssetImage('assets/images/gweh.png'),
                         ),
                       ),
                     ),
@@ -99,7 +139,7 @@ class ProfilePageView extends GetView<ProfilePageController> {
                       child: Container(
                         padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 4),
                         decoration: BoxDecoration(
-                          color: AppColorsDark.primary,
+                          color: AppColorsDark.bg,
                           borderRadius: BorderRadius.circular(8),
                           boxShadow: const [
                             BoxShadow(
@@ -119,7 +159,7 @@ class ProfilePageView extends GetView<ProfilePageController> {
                           style: GoogleFonts.dmSans(
                             fontSize: 11,
                             fontWeight: FontWeight.normal,
-                            color: AppColorsDark.teksPrimary,
+                            color: AppColorsDark.teksThird,
                           ),
                         ),
                       ),
@@ -135,7 +175,7 @@ class ProfilePageView extends GetView<ProfilePageController> {
                 height: 160,
                 margin: const EdgeInsets.symmetric(horizontal: 16),
                 decoration: BoxDecoration(
-                  color: AppColorsDark.primary,
+                  color: AppColorsDark.bg,
                   borderRadius: BorderRadius.circular(16),
                   boxShadow: const [
                     BoxShadow(
@@ -159,7 +199,7 @@ class ProfilePageView extends GetView<ProfilePageController> {
                         style: GoogleFonts.dmSans(
                           fontSize: 18,
                           fontWeight: FontWeight.bold,
-                          color: AppColorsDark.teksPrimary,
+                          color: AppColorsDark.teksThird,
                         ),
                       ),
                     ],
@@ -174,7 +214,7 @@ class ProfilePageView extends GetView<ProfilePageController> {
                 height: 160,
                 margin: const EdgeInsets.symmetric(horizontal: 16),
                 decoration: BoxDecoration(
-                  color: AppColorsDark.primary,
+                  color: AppColorsDark.bg,
                   borderRadius: BorderRadius.circular(16),
                   boxShadow: const [
                     BoxShadow(
@@ -198,7 +238,7 @@ class ProfilePageView extends GetView<ProfilePageController> {
                         style: GoogleFonts.dmSans(
                           fontSize: 18,
                           fontWeight: FontWeight.bold,
-                          color: AppColorsDark.teksPrimary,
+                          color: AppColorsDark.teksThird,
                         ),
                       ),
                     ],

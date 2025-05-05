@@ -12,6 +12,8 @@ import '../modules/register_page/bindings/register_page_binding.dart';
 import '../modules/register_page/views/register_page_view.dart';
 import '../modules/spalsh/bindings/spalsh_binding.dart';
 import '../modules/spalsh/views/spalsh_view.dart';
+import '../modules/video/bindings/video_binding.dart';
+import '../modules/video/views/video_view.dart';
 
 part 'app_routes.dart';
 
@@ -50,6 +52,11 @@ class AppPages {
       name: _Paths.EDIT_PROFILE_PAGE,
       page: () => const EditProfilePageView(),
       binding: EditProfilePageBinding(),
+    ),
+    GetPage(
+      name: _Paths.VIDEO,
+      page: () =>  VideoView(),
+      binding: VideoBinding(),
     ),
   ];
 }
