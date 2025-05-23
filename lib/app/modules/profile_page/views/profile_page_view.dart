@@ -26,7 +26,6 @@ class ProfilePageView extends GetView<ProfilePageController> {
                     // Tombol kembali
                     GestureDetector(
                       onTap: () {
-                        // Navigasi kembali ke halaman Home
                         Get.offAllNamed(Routes.HOME);
                       },
                       child: Container(
@@ -49,7 +48,7 @@ class ProfilePageView extends GetView<ProfilePageController> {
                         ),
                         child: Icon(
                           Icons.arrow_back,
-                          color: AppColorsDark.teksThird,
+                          color: AppColorsDark.teksOnPrimary,
                           size: 20,
                         ),
                       ),
@@ -59,19 +58,20 @@ class ProfilePageView extends GetView<ProfilePageController> {
                       style: GoogleFonts.dmSans(
                         fontSize: 18,
                         fontWeight: FontWeight.bold,
-                        color: AppColorsDark.teksThird,
+                        color: AppColorsDark.teksOnPrimary,
                       ),
                     ),
-                    // Placeholder untuk menjaga simetri layout
-                    SizedBox(width: 40),
+                    const SizedBox(width: 40),
                   ],
                 ),
               ),
               const SizedBox(height: 20),
+
+              // Avatar dan nama pengguna
               Stack(
                 clipBehavior: Clip.none,
                 children: [
-                  // Card pertama
+                  // Card bawah
                   Container(
                     width: double.infinity,
                     height: 110,
@@ -98,14 +98,14 @@ class ProfilePageView extends GetView<ProfilePageController> {
                         padding: const EdgeInsets.only(top: 50.0, bottom: 16.0),
                         child: Column(
                           children: [
-                            Text(
-                              'yaseruuu',
+                            Obx(() => Text(
+                              controller.username.value,
                               style: GoogleFonts.dmSans(
                                 fontSize: 18,
                                 fontWeight: FontWeight.w500,
-                                color: AppColorsDark.teksThird,
+                                color: AppColorsDark.teksOnPrimary,
                               ),
-                            ),
+                            )),
                           ],
                         ),
                       ),
@@ -133,7 +133,6 @@ class ProfilePageView extends GetView<ProfilePageController> {
                     right: 30,
                     child: GestureDetector(
                       onTap: () {
-                        print("Edit Profile Button Pressed");
                         Get.offAllNamed(Routes.EDIT_PROFILE_PAGE);
                       },
                       child: Container(
@@ -159,7 +158,7 @@ class ProfilePageView extends GetView<ProfilePageController> {
                           style: GoogleFonts.dmSans(
                             fontSize: 11,
                             fontWeight: FontWeight.normal,
-                            color: AppColorsDark.teksThird,
+                            color: AppColorsDark.teksOnPrimary,
                           ),
                         ),
                       ),
@@ -170,6 +169,7 @@ class ProfilePageView extends GetView<ProfilePageController> {
 
               const SizedBox(height: 24),
 
+              // Feature Card 1
               Container(
                 width: double.infinity,
                 height: 160,
@@ -199,7 +199,7 @@ class ProfilePageView extends GetView<ProfilePageController> {
                         style: GoogleFonts.dmSans(
                           fontSize: 18,
                           fontWeight: FontWeight.bold,
-                          color: AppColorsDark.teksThird,
+                          color: AppColorsDark.teksOnPrimary,
                         ),
                       ),
                     ],
@@ -209,6 +209,7 @@ class ProfilePageView extends GetView<ProfilePageController> {
 
               const SizedBox(height: 24),
 
+              // Feature Card 2
               Container(
                 width: double.infinity,
                 height: 160,
@@ -238,7 +239,7 @@ class ProfilePageView extends GetView<ProfilePageController> {
                         style: GoogleFonts.dmSans(
                           fontSize: 18,
                           fontWeight: FontWeight.bold,
-                          color: AppColorsDark.teksThird,
+                          color: AppColorsDark.teksOnPrimary,
                         ),
                       ),
                     ],

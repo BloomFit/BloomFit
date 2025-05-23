@@ -1,23 +1,17 @@
 import 'package:get/get.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class HomeController extends GetxController {
-  //TODO: Implement HomeController
+  var username = ''.obs;
 
-  final count = 0.obs;
   @override
   void onInit() {
     super.onInit();
+    loadUsername();
   }
 
-  @override
-  void onReady() {
-    super.onReady();
+  Future<void> loadUsername() async {
+    final prefs = await SharedPreferences.getInstance();
+    username.value = prefs.getString('username') ?? 'User';
   }
-
-  @override
-  void onClose() {
-    super.onClose();
-  }
-
-  void increment() => count.value++;
 }

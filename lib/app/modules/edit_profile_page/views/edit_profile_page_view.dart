@@ -17,14 +17,14 @@ class EditProfilePageView extends GetView<EditProfilePageController> {
         backgroundColor: AppColorsDark.fourth,
         leading: IconButton(
           icon: const Icon(Icons.arrow_back,
-              color: AppColorsDark.teksThird),
+              color: AppColorsDark.teksOnPrimary),
           iconSize: 16,
           onPressed: () => Get.offAllNamed(Routes.PROFILE_PAGE),
         ),
         title: const Text(
           'Edit Profile',
           style: TextStyle(
-              color: AppColorsDark.teksThird,
+              color: AppColorsDark.teksOnPrimary,
             fontSize: 16
           ),
         ),
@@ -101,7 +101,7 @@ class EditProfilePageView extends GetView<EditProfilePageController> {
                               child: const Text(
                                 'Galeri',
                                 style: TextStyle(
-                                  color: AppColorsDark.teksThird,
+                                  color: AppColorsDark.teksOnPrimary,
                                   fontSize: 14,
                                   fontWeight: FontWeight.normal,
                                 ),
@@ -137,7 +137,7 @@ class EditProfilePageView extends GetView<EditProfilePageController> {
                               child: const Text(
                                 'Kamera',
                                 style: TextStyle(
-                                  color: AppColorsDark.teksThird,
+                                  color: AppColorsDark.teksOnPrimary,
                                   fontSize: 14,
                                   fontWeight: FontWeight.normal,
                                 ),
@@ -186,7 +186,7 @@ class EditProfilePageView extends GetView<EditProfilePageController> {
                         style: GoogleFonts.dmSans(
                           fontSize: 18,
                           fontWeight: FontWeight.bold,
-                          color: AppColorsDark.teksThird,
+                          color: AppColorsDark.teksOnPrimary,
                         ),
                       ),
 
@@ -200,13 +200,13 @@ class EditProfilePageView extends GetView<EditProfilePageController> {
                           hintStyle: TextStyle(color: Colors.black),
                           border: const UnderlineInputBorder(
                             borderSide: BorderSide(
-                              color: AppColorsDark.teksThird,
+                              color: AppColorsDark.teksOnPrimary,
                               width: 2.0,
                             ),
                           ),
                           focusedBorder: const UnderlineInputBorder(
                             borderSide: BorderSide(
-                              color: AppColorsDark.teksThird,
+                              color: AppColorsDark.teksOnPrimary,
                               width: 2.0,
                             ),
                           ),
@@ -291,7 +291,7 @@ class EditProfilePageView extends GetView<EditProfilePageController> {
                                           height: 20,
                                           child: ColorFiltered(
                                             colorFilter: const ColorFilter.mode(
-                                              AppColorsDark.teksThird,
+                                              AppColorsDark.teksOnPrimary,
                                               BlendMode.srcIn,
                                             ),
                                             // child: Image.asset('assets/icons/account.png'),
@@ -302,7 +302,7 @@ class EditProfilePageView extends GetView<EditProfilePageController> {
                                       const Text(
                                         'Trimester 1',
                                         style: TextStyle(
-                                          color: AppColorsDark.teksThird,
+                                          color: AppColorsDark.teksOnPrimary,
                                           fontSize: 14,
                                           fontWeight: FontWeight.w500,
                                         ),
@@ -352,7 +352,7 @@ class EditProfilePageView extends GetView<EditProfilePageController> {
                                           height: 20,
                                           child: ColorFiltered(
                                             colorFilter: const ColorFilter.mode(
-                                              AppColorsDark.teksThird,
+                                              AppColorsDark.teksOnPrimary,
                                               BlendMode.srcIn,
                                             ),
                                             // child: Image.asset('assets/icons/account.png'),
@@ -363,7 +363,7 @@ class EditProfilePageView extends GetView<EditProfilePageController> {
                                       const Text(
                                         '3 Minggu',
                                         style: TextStyle(
-                                          color: AppColorsDark.teksThird,
+                                          color: AppColorsDark.teksOnPrimary,
                                           fontSize: 14,
                                           fontWeight: FontWeight.w500,
                                         ),
@@ -413,7 +413,7 @@ class EditProfilePageView extends GetView<EditProfilePageController> {
                                           height: 20,
                                           child: ColorFiltered(
                                             colorFilter: const ColorFilter.mode(
-                                              AppColorsDark.teksThird,
+                                              AppColorsDark.teksOnPrimary,
                                               BlendMode.srcIn,
                                             ),
                                             // child: Image.asset('assets/icons/account.png'),
@@ -424,7 +424,7 @@ class EditProfilePageView extends GetView<EditProfilePageController> {
                                       const Text(
                                         'Sehat',
                                         style: TextStyle(
-                                          color: AppColorsDark.teksThird,
+                                          color: AppColorsDark.teksOnPrimary,
                                           fontSize: 14,
                                           fontWeight: FontWeight.w500,
                                         ),
@@ -474,7 +474,7 @@ class EditProfilePageView extends GetView<EditProfilePageController> {
                                           height: 20,
                                           child: ColorFiltered(
                                             colorFilter: const ColorFilter.mode(
-                                              AppColorsDark.teksThird,
+                                              AppColorsDark.teksOnPrimary,
                                               BlendMode.srcIn,
                                             ),
                                             // child: Image.asset('assets/icons/account.png'),
@@ -485,7 +485,7 @@ class EditProfilePageView extends GetView<EditProfilePageController> {
                                       const Text(
                                         '9 Jul 2006',
                                         style: TextStyle(
-                                          color: AppColorsDark.teksThird,
+                                          color: AppColorsDark.teksOnPrimary,
                                           fontSize: 14,
                                           fontWeight: FontWeight.w500,
                                         ),
@@ -533,7 +533,7 @@ class EditProfilePageView extends GetView<EditProfilePageController> {
                           style: GoogleFonts.dmSans(
                             fontSize: 14,
                             fontWeight: FontWeight.w600,
-                            color: AppColorsDark.teksThird,
+                            color: AppColorsDark.teksOnPrimary,
 
                           ),
                         ),

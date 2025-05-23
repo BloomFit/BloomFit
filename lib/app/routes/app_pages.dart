@@ -18,6 +18,8 @@ import '../modules/spalsh/bindings/spalsh_binding.dart';
 import '../modules/spalsh/views/spalsh_view.dart';
 import '../modules/video/bindings/video_binding.dart';
 import '../modules/video/views/video_view.dart';
+import '../modules/visualiasi/bindings/visualiasi_binding.dart';
+import '../modules/visualiasi/views/visualiasi_view.dart';
 
 part 'app_routes.dart';
 
@@ -52,7 +54,6 @@ class AppPages {
       page: () => const ProfilePageView(),
       binding: ProfilePageBinding(),
     ),
-
     GetPage(
       name: _Paths.EDIT_PROFILE_PAGE,
       page: () => const EditProfilePageView(),
@@ -72,6 +73,11 @@ class AppPages {
       name: _Paths.DETECTION_PAGE,
       page: () => const DetectionPageView(),
       binding: DetectionPageBinding(),
+    ),
+    GetPage(
+      name: _Paths.VISUALIASI,
+      page: () => const VisualiasiView(),
+      binding: VisualiasiBinding(),
     ),
   ];
 }

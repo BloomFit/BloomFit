@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:mobile_app/app/routes/app_pages.dart';
-
+import 'package:lottie/lottie.dart';
 import '../../../constants/colors.dart';
 import '../controllers/home_controller.dart';
 
@@ -23,15 +23,7 @@ class HomeView extends GetView<HomeController> {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      _buildGreeting(),
-                      const SizedBox(height: 8),
-                      _buildWeekTitle(),
-                      const SizedBox(height: 16),
-                      _buildDaySelector(),
-                      const SizedBox(height: 24),
-                      _buildBabyInfo(),
-                      const SizedBox(height: 24),
-                      _buildStats(),
+                      _buildLottieSection(),
                       const SizedBox(height: 24),
                       _buildMenuGrid(),
                     ],
@@ -52,13 +44,13 @@ class HomeView extends GetView<HomeController> {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          Row(
-            children: [
-            ],
+          // Greeting di sebelah kiri
+          Expanded(
+            child: _buildGreeting(),
           ),
+          // Foto profil di sebelah kanan
           GestureDetector(
             onTap: () {
-              // Navigasi ke halaman profil menggunakan GetX
               Get.offAllNamed(Routes.PROFILE_PAGE);
             },
             child: const CircleAvatar(
@@ -72,153 +64,58 @@ class HomeView extends GetView<HomeController> {
   }
 
   Widget _buildGreeting() {
-    return const Text(
-      'Hello, Yaseruuu',
-      style: TextStyle(
-        fontSize: 16,
-        color: Colors.white,
+    return Obx(() => Text(
+      'Hello, ${controller.username.value}🧘🏼‍♀️️',
+      style: const TextStyle(
+        fontFamily: 'Poppins',
+        // fontFamily: , // Tambahkan font family yang sesuai
+        fontSize: 25,
+        color: Colors.black,
       ),
-    );
+    ));
   }
 
-  Widget _buildWeekTitle() {
-    return const Text(
-      '16th Week of Pregnancy',
-      style: TextStyle(
-        fontSize: 24,
-        fontWeight: FontWeight.bold,
-        color: Colors.white,
-      ),
-    );
-  }
-
-  Widget _buildDaySelector() {
-    return SizedBox(
-      height: 60,
-      child: ListView(
-        scrollDirection: Axis.horizontal,
-        children: [
-          _buildDayItem('Mon', '16', false),
-          _buildDayItem('Mon', '17', false),
-          _buildDayItem('Tue', '18', true),
-          _buildDayItem('Wed', '19', false),
-          _buildDayItem('Wed', '20', false),
-          _buildDayItem('Wed', '21', false),
-          _buildDayItem('Wed', '22', false),
-        ],
-      ),
-    );
-  }
-
-  Widget _buildDayItem(String day, String date, bool isSelected) {
-    final Color activeColor = AppColorsDark.aksen ?? Colors.pink;
-
-    return Container(
-      width: 50,
-      margin: const EdgeInsets.only(right: 8),
-      decoration: BoxDecoration(
-        color: isSelected ? activeColor : Colors.transparent,
-        borderRadius: BorderRadius.circular(12),
-      ),
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          Text(
-            day,
-            style: TextStyle(
-              fontSize: 12,
-              color: isSelected ? Colors.white : Colors.grey,
-            ),
-          ),
-          Text(
-            date,
-            style: TextStyle(
-              fontSize: 18,
-              fontWeight: FontWeight.bold,
-              color: isSelected ? Colors.white : Colors.white,
-            ),
-          ),
-        ],
-      ),
-    );
-  }
-
-  Widget _buildBabyInfo() {
-    final Color accentColor = AppColorsDark.aksen ?? Colors.pink;
-
-    return Container(
-      padding: const EdgeInsets.all(16),
-      decoration: BoxDecoration(
-        color: accentColor.withOpacity(0.3),
-        borderRadius: BorderRadius.circular(16),
-      ),
-      child: Row(
-        children: [
-          Container(
-            padding: const EdgeInsets.all(12),
-            decoration: BoxDecoration(
-              color: accentColor.withOpacity(0.5),
-              shape: BoxShape.circle,
-            ),
-            child: Icon(
-              Icons.pregnant_woman_sharp,
-              color: AppColorsDark.teksPrimary,
-              size: 28,
-            ),
-          ),
-          const SizedBox(width: 16),
-          const Text(
-            'Your baby is the size of a pear',
-            style: TextStyle(
-              fontSize: 16,
-              fontWeight: FontWeight.w500,
-              color: Colors.white,
-            ),
-          ),
-        ],
-      ),
-    );
-  }
-
-  Widget _buildStats() {
-    return Row(
-      children: [
-        Expanded(
-          child: _buildStatItem('Baby Height', '17 cm'),
+  // Widget untuk menampilkan Lottie animation
+  Widget _buildLottieSection() {
+    return Center(
+      child: Container(
+        width: double.infinity,
+        height: 300,
+        child: Lottie.asset(
+          'assets/images/home1.json',
+          fit: BoxFit.contain,
+          repeat: true,
+          animate: true,
+          errorBuilder: (context, error, stackTrace) {
+            return Container(
+              decoration: BoxDecoration(
+                color: AppColorsDark.third?.withOpacity(0.3),
+                borderRadius: BorderRadius.circular(16),
+              ),
+              child: const Center(
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Icon(
+                      Icons.animation,
+                      color: Colors.white54,
+                      size: 48,
+                    ),
+                    SizedBox(height: 8),
+                    Text(
+                      'Animation not found',
+                      style: TextStyle(
+                        color: Colors.white54,
+                        fontSize: 14,
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            );
+          },
         ),
-        const SizedBox(width: 16),
-        Expanded(
-          child: _buildStatItem('Baby Weight', '110 gr'),
-        ),
-        const SizedBox(width: 16),
-        Expanded(
-          child: _buildStatItem('Days Left', '168 days'),
-        ),
-      ],
-    );
-  }
-
-  Widget _buildStatItem(String title, String value) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Text(
-          title,
-          style: const TextStyle(
-            fontSize: 14,
-            color: Colors.white,
-          ),
-        ),
-        const SizedBox(height: 4),
-        Text(
-          value,
-          style: const TextStyle(
-            fontSize: 16,
-            fontWeight: FontWeight.bold,
-            color: Colors.white,
-          ),
-        ),
-      ],
+      ),
     );
   }
 
@@ -233,9 +130,6 @@ class HomeView extends GetView<HomeController> {
       crossAxisSpacing: 16,
       childAspectRatio: 1.5,
       children: [
-        _buildMenuItem(Icons.medication, 'Medicines', accentColor, () {
-          // Handle medicines menu click
-        }),
         _buildMenuItem(Icons.fitness_center, 'Detection', accentColor, () {
           Get.toNamed(Routes.DETECTION_PAGE);
         }),
@@ -246,6 +140,9 @@ class HomeView extends GetView<HomeController> {
           // Navigate to video page when clicked
           Get.toNamed(Routes.VIDEO);
         }),
+        _buildMenuItem(Icons.data_object, 'Visualisasi', accentColor, (){
+          Get.toNamed(Routes.VISUALIASI);
+        })
       ],
     );
   }

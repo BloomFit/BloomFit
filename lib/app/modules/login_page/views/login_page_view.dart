@@ -20,15 +20,14 @@ class LoginPageView extends GetView<LoginPageController> {
           const SizedBox(height: 100),
 
           // App Logo
-          Container(
-            child: Center(
-              child: Image.asset(
-                'assets/logo/logo2.png',
-              ),
+          Center(
+            child: Image.asset(
+              'assets/logo/logo2.png',
+              height: 80,
             ),
           ),
 
-          // App Name - Safe Bump
+          // App Name - Bloom Fit
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
@@ -67,13 +66,11 @@ class LoginPageView extends GetView<LoginPageController> {
                     color: Color(0xFF575757),
                     offset: Offset(-2, -2),
                     blurRadius: 1,
-                    // inset: true
                   ),
                   BoxShadow(
                     color: Color(0xFF000000),
                     offset: Offset(2, 2),
                     blurRadius: 1,
-                    // inset: true
                   )
                 ],
               ),
@@ -81,63 +78,59 @@ class LoginPageView extends GetView<LoginPageController> {
                 padding: const EdgeInsets.symmetric(horizontal: 24),
                 child: ListView(
                   children: [
+                    const SizedBox(height: 40),
+
                     // Email TextField
-                    Padding(
-                      padding: const EdgeInsets.only(
-                          top: 40, right: 5, left: 5, bottom: 0),
-                      child: CustomTextField(
-                        key: const Key("email"),
-                        hintText: 'Email',
-                        // controller: null,
-                        leadingIconPath: 'assets/icons/mail.png',
-                      ),
+                    CustomTextField(
+                      key: const Key("email"),
+                      hintText: 'Email',
+                      controller: controller.emailController,
+                      leadingIconPath: 'assets/icons/mail.png',
                     ),
 
+                    const SizedBox(height: 20),
+
                     // Password TextField
-                    Padding(
-                      padding: const EdgeInsets.only(
-                          top: 20, right: 5, left: 5, bottom: 0),
-                      child: CustomTextField(
-                        key: const Key("lock"),
-                        hintText: 'Password',
-                        // isPassword: true,
-                        // controller: null,
-                        leadingIconPath: 'assets/icons/lock.png',
-                      ),
+                    CustomTextField(
+                      key: const Key("password"),
+                      hintText: 'Password',
+                      isPassword: true,
+                      controller: controller.passwordController,
+                      leadingIconPath: 'assets/icons/lock.png',
                     ),
 
                     const SizedBox(height: 50),
 
                     // Login Button
-                    SizedBox(
+                    Obx(() => SizedBox(
                       width: 360,
                       height: 55,
                       child: InkWell(
                         key: const Key("btn_login"),
-                        onTap: () {
-                          Get.offAllNamed(Routes.HOME);
-                        },
+                        onTap: controller.isLoading.value ? null : controller.login,
                         child: Container(
                           decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(10),
-                            color: AppColorsDark.primary,
+                            color: controller.isLoading.value
+                                ? Colors.grey
+                                : AppColorsDark.primary,
                             boxShadow: const [
                               BoxShadow(
                                 color: Color(0xFF575757),
                                 offset: Offset(-2, -2),
                                 blurRadius: 1,
-                                // inset: true
                               ),
                               BoxShadow(
                                 color: Color(0xFF000000),
                                 offset: Offset(2, 2),
                                 blurRadius: 1,
-                                // inset: true
                               )
                             ],
                           ),
                           child: Center(
-                            child: Text(
+                            child: controller.isLoading.value
+                                ? const CircularProgressIndicator(color: Colors.white)
+                                : Text(
                               "Login",
                               style: GoogleFonts.dmSans(
                                 fontSize: 14,
@@ -148,7 +141,7 @@ class LoginPageView extends GetView<LoginPageController> {
                           ),
                         ),
                       ),
-                    ),
+                    )),
 
                     const SizedBox(height: 20),
 
@@ -164,9 +157,7 @@ class LoginPageView extends GetView<LoginPageController> {
                           ),
                         ),
                         TextButton(
-                          onPressed: () {
-                            Get.toNamed(Routes.REGISTER_PAGE);
-                          },
+                          onPressed: () => Get.toNamed(Routes.REGISTER_PAGE),
                           child: Text(
                             'daftar',
                             style: GoogleFonts.dmSans(
@@ -179,17 +170,6 @@ class LoginPageView extends GetView<LoginPageController> {
                     ),
 
                     const SizedBox(height: 52),
-
-                    // Footer Text (empty)
-                    Center(
-                      child: Text(
-                        '',
-                        style: GoogleFonts.dmSans(
-                          fontSize: 12,
-                          color: Colors.black,
-                        ),
-                      ),
-                    ),
                   ],
                 ),
               ),

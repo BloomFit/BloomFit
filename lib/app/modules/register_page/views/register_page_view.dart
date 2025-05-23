@@ -20,11 +20,10 @@ class RegisterPageView extends GetView<RegisterPageController> {
           const SizedBox(height: 80),
 
           // App Logo
-          Container(
-            child: Center(
-              child: Image.asset(
-                'assets/logo/logo2.png',
-              ),
+          Center(
+            child: Image.asset(
+              'assets/logo/logo2.png',
+              height: 80,
             ),
           ),
 
@@ -67,13 +66,11 @@ class RegisterPageView extends GetView<RegisterPageController> {
                     color: Color(0xFF575757),
                     offset: Offset(-2, -2),
                     blurRadius: 1,
-                    // inset: true
                   ),
                   BoxShadow(
                     color: Color(0xFF000000),
                     offset: Offset(2, 2),
                     blurRadius: 1,
-                    // inset: true
                   )
                 ],
               ),
@@ -99,76 +96,74 @@ class RegisterPageView extends GetView<RegisterPageController> {
 
                     // Full Name TextField
                     Padding(
-                      padding: const EdgeInsets.only(
-                          top: 10, right: 5, left: 5, bottom: 0),
+                      padding: const EdgeInsets.symmetric(vertical: 10),
                       child: CustomTextField(
-                        key: const Key("fullname"),
+                        key: const Key("username"),
                         hintText: 'Nama Lengkap',
-                        // controller: null,
+                        controller: controller.usernameController,
                         leadingIconPath: 'assets/icons/account.png',
                       ),
                     ),
 
                     // Email TextField
                     Padding(
-                      padding: const EdgeInsets.only(
-                          top: 15, right: 5, left: 5, bottom: 0),
+                      padding: const EdgeInsets.symmetric(vertical: 10),
                       child: CustomTextField(
                         key: const Key("email"),
                         hintText: 'Email',
-                        // controller: null,
+                        controller: controller.emailController,
                         leadingIconPath: 'assets/icons/mail.png',
                       ),
                     ),
 
                     // Password TextField
                     Padding(
-                      padding: const EdgeInsets.only(
-                          top: 15, right: 5, left: 5, bottom: 0),
+                      padding: const EdgeInsets.symmetric(vertical: 10),
                       child: CustomTextField(
                         key: const Key("password"),
                         hintText: 'Password',
-                        // isPassword: true,
-                        // controller: null,
+                        isPassword: true,
+                        controller: controller.passwordController,
                         leadingIconPath: 'assets/icons/lock.png',
                       ),
                     ),
 
-                    // Confirm Password TextFiel
-
                     const SizedBox(height: 30),
 
-                    // Register Button
-                    SizedBox(
+                    // Register Button with loading state
+                    Obx(() => SizedBox(
                       width: 360,
                       height: 55,
                       child: InkWell(
                         key: const Key("btn_register"),
-                        onTap: () {
-                          // Implement register logic here
-                          Get.offAllNamed(Routes.LOGIN_PAGE);
-                        },
+                        onTap: controller.isLoading.value
+                            ? null
+                            : controller.register,
                         child: Container(
                           decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(10),
-                            color: AppColorsDark.primary,
+                            color: controller.isLoading.value
+                                ? Colors.grey
+                                : AppColorsDark.primary,
                             boxShadow: const [
                               BoxShadow(
                                 color: Color(0xFF575757),
                                 offset: Offset(-2, -2),
                                 blurRadius: 1,
-                                // inset: true
                               ),
                               BoxShadow(
                                 color: Color(0xFF000000),
                                 offset: Offset(2, 2),
                                 blurRadius: 1,
-                                // inset: true
                               )
                             ],
                           ),
                           child: Center(
-                            child: Text(
+                            child: controller.isLoading.value
+                                ? const CircularProgressIndicator(
+                              color: Colors.white,
+                            )
+                                : Text(
                               "Daftar",
                               style: GoogleFonts.dmSans(
                                 fontSize: 14,
@@ -179,7 +174,7 @@ class RegisterPageView extends GetView<RegisterPageController> {
                           ),
                         ),
                       ),
-                    ),
+                    )),
 
                     const SizedBox(height: 15),
 
