@@ -76,7 +76,7 @@ class AppPages {
     ),
     GetPage(
       name: _Paths.VISUALIASI,
-      page: () => const VisualiasiView(),
+      page: () => VisualiasiView(),
       binding: VisualiasiBinding(),
     ),
   ];
