@@ -19,7 +19,6 @@ class LoginPageView extends GetView<LoginPageController> {
         children: [
           const SizedBox(height: 100),
 
-          // App Logo
           Center(
             child: Image.asset(
               'assets/logo/logo2.png',
@@ -27,7 +26,6 @@ class LoginPageView extends GetView<LoginPageController> {
             ),
           ),
 
-          // App Name - Bloom Fit
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
@@ -52,7 +50,6 @@ class LoginPageView extends GetView<LoginPageController> {
 
           const SizedBox(height: 200),
 
-          // Login Form Container
           Expanded(
             child: Container(
               decoration: const BoxDecoration(
@@ -84,7 +81,7 @@ class LoginPageView extends GetView<LoginPageController> {
                     CustomTextField(
                       key: const Key("email"),
                       hintText: 'Email',
-                      controller: controller.emailController,
+                      onChanged: (value) => controller.email.value = value,
                       leadingIconPath: 'assets/icons/mail.png',
                     ),
 
@@ -95,7 +92,7 @@ class LoginPageView extends GetView<LoginPageController> {
                       key: const Key("password"),
                       hintText: 'Password',
                       isPassword: true,
-                      controller: controller.passwordController,
+                      onChanged: (value) => controller.password.value = value,
                       leadingIconPath: 'assets/icons/lock.png',
                     ),
 
@@ -107,7 +104,9 @@ class LoginPageView extends GetView<LoginPageController> {
                       height: 55,
                       child: InkWell(
                         key: const Key("btn_login"),
-                        onTap: controller.isLoading.value ? null : controller.login,
+                        onTap: controller.isLoading.value
+                            ? null
+                            : controller.login,
                         child: Container(
                           decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(10),
@@ -129,7 +128,9 @@ class LoginPageView extends GetView<LoginPageController> {
                           ),
                           child: Center(
                             child: controller.isLoading.value
-                                ? const CircularProgressIndicator(color: Colors.white)
+                                ? const CircularProgressIndicator(
+                              color: Colors.white,
+                            )
                                 : Text(
                               "Login",
                               style: GoogleFonts.dmSans(
@@ -145,7 +146,6 @@ class LoginPageView extends GetView<LoginPageController> {
 
                     const SizedBox(height: 20),
 
-                    // Registration Text
                     Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [

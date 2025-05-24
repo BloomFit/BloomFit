@@ -1,15 +1,13 @@
-import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import '../../../routes/app_pages.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 import 'package:shared_preferences/shared_preferences.dart';
-
+import '../../../routes/app_pages.dart';
 
 class LoginPageController extends GetxController {
-  final emailController = TextEditingController();
-  final passwordController = TextEditingController();
-  final isLoading = false.obs;
+  var email = ''.obs;
+  var password = ''.obs;
+  var isLoading = false.obs;
 
   Future<void> login() async {
     isLoading.value = true;
@@ -19,24 +17,21 @@ class LoginPageController extends GetxController {
         Uri.parse('https://capstone6-sand.vercel.app/api/auth/login'),
         headers: {'Content-Type': 'application/json'},
         body: jsonEncode({
-          'email': emailController.text.trim(),
-          'password': passwordController.text.trim(),
+          'email': email.value.trim(),
+          'password': password.value.trim(),
         }),
       );
 
       final data = jsonDecode(response.body);
-      print('Response body: ${response.body}'); // debug
+      print('Response body: ${response.body}');
 
       if (response.statusCode == 200) {
         final token = data['access_token'];
-        final username = data['data']['username']; // nested ambil username
+        final username = data['data']['username'];
 
         final prefs = await SharedPreferences.getInstance();
         await prefs.setString('token', token);
         await prefs.setString('username', username);
-
-        print('Token user: $token');
-        print('Username user: $username');
 
         Get.snackbar('Berhasil', 'Login berhasil');
         Get.offAllNamed(Routes.HOME);
@@ -49,14 +44,5 @@ class LoginPageController extends GetxController {
     } finally {
       isLoading.value = false;
     }
-  }
-
-
-
-  @override
-  void onClose() {
-    emailController.dispose();
-    passwordController.dispose();
-    super.onClose();
   }
 }

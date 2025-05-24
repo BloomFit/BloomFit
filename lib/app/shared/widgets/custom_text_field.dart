@@ -5,6 +5,7 @@ class CustomTextField extends StatelessWidget {
   final TextEditingController? controller;
   final String? leadingIconPath;
   final bool isPassword;
+  final ValueChanged<String>? onChanged;  // Tambahkan ini
 
   const CustomTextField({
     Key? key,
@@ -12,6 +13,7 @@ class CustomTextField extends StatelessWidget {
     this.controller,
     this.leadingIconPath,
     this.isPassword = false,
+    this.onChanged,   // Tambahkan ini juga di konstruktor
   }) : super(key: key);
 
   @override
@@ -20,6 +22,7 @@ class CustomTextField extends StatelessWidget {
       controller: controller,
       obscureText: isPassword,
       style: const TextStyle(color: Colors.white),
+      onChanged: onChanged,  // Pasangkan onChanged ke TextField
       decoration: InputDecoration(
         filled: true,
         fillColor: const Color(0xFF2E2E2E),
@@ -40,7 +43,8 @@ class CustomTextField extends StatelessWidget {
           borderRadius: BorderRadius.circular(12),
           borderSide: BorderSide.none,
         ),
-        contentPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
+        contentPadding:
+        const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
       ),
     );
   }
