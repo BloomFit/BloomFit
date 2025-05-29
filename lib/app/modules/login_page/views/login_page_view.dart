@@ -18,14 +18,12 @@ class LoginPageView extends GetView<LoginPageController> {
       body: Column(
         children: [
           const SizedBox(height: 100),
-
           Center(
             child: Image.asset(
               'assets/logo/logo2.png',
               height: 80,
             ),
           ),
-
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
@@ -47,9 +45,7 @@ class LoginPageView extends GetView<LoginPageController> {
               ),
             ],
           ),
-
           const SizedBox(height: 200),
-
           Expanded(
             child: Container(
               decoration: const BoxDecoration(
@@ -76,18 +72,13 @@ class LoginPageView extends GetView<LoginPageController> {
                 child: ListView(
                   children: [
                     const SizedBox(height: 40),
-
-                    // Email TextField
                     CustomTextField(
                       key: const Key("email"),
                       hintText: 'Email',
                       onChanged: (value) => controller.email.value = value,
                       leadingIconPath: 'assets/icons/mail.png',
                     ),
-
                     const SizedBox(height: 20),
-
-                    // Password TextField
                     CustomTextField(
                       key: const Key("password"),
                       hintText: 'Password',
@@ -95,10 +86,7 @@ class LoginPageView extends GetView<LoginPageController> {
                       onChanged: (value) => controller.password.value = value,
                       leadingIconPath: 'assets/icons/lock.png',
                     ),
-
                     const SizedBox(height: 50),
-
-                    // Login Button
                     Obx(() => SizedBox(
                       width: 360,
                       height: 55,
@@ -143,9 +131,66 @@ class LoginPageView extends GetView<LoginPageController> {
                         ),
                       ),
                     )),
-
                     const SizedBox(height: 20),
-
+                    Center(
+                      child: Text(
+                        'Atau login dengan',
+                        style: GoogleFonts.dmSans(
+                          fontSize: 12,
+                          color: Colors.white70,
+                        ),
+                      ),
+                    ),
+                    const SizedBox(height: 12),
+                    // 🔽 Google Login Button
+                    Obx(() => SizedBox(
+                      width: 360,
+                      height: 55,
+                      child: InkWell(
+                        key: const Key("btn_google_login"),
+                        onTap: controller.isLoading.value
+                            ? null
+                            : controller.signInWithGoogle,
+                        child: Container(
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(10),
+                            color: Colors.white,
+                            boxShadow: const [
+                              BoxShadow(
+                                color: Color(0xFF575757),
+                                offset: Offset(-2, -2),
+                                blurRadius: 1,
+                              ),
+                              BoxShadow(
+                                color: Color(0xFF000000),
+                                offset: Offset(2, 2),
+                                blurRadius: 1,
+                              )
+                            ],
+                          ),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Image.asset(
+                                'assets/icons/google.png',
+                                width: 24,
+                                height: 24,
+                              ),
+                              const SizedBox(width: 10),
+                              Text(
+                                "Login dengan Google",
+                                style: GoogleFonts.dmSans(
+                                  fontSize: 14,
+                                  fontWeight: FontWeight.w600,
+                                  color: Colors.black,
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                      ),
+                    )),
+                    const SizedBox(height: 20),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
@@ -168,7 +213,6 @@ class LoginPageView extends GetView<LoginPageController> {
                         ),
                       ],
                     ),
-
                     const SizedBox(height: 52),
                   ],
                 ),

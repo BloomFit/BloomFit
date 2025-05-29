@@ -4,6 +4,9 @@ import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:google_sign_in/google_sign_in.dart';
+
 import '../../../routes/app_pages.dart';
 
 class LoginPageController extends GetxController {
@@ -28,11 +31,10 @@ class LoginPageController extends GetxController {
         print('Parsed path: ${uri.path}');
 
         if (uri.path == '/login-auto') {
-          // Kamu bisa melakukan sesuatu, misalnya autofill atau login otomatis
           email.value = uri.queryParameters['email'] ?? '';
           password.value = uri.queryParameters['password'] ?? '';
           if (email.isNotEmpty && password.isNotEmpty) {
-            await login(); // auto-login
+            await login();
           }
         }
       }
@@ -60,12 +62,12 @@ class LoginPageController extends GetxController {
       if (response.statusCode == 200) {
         final token = data['access_token'];
         final username = data['data']['username'];
-        final img = data['data']['img']; // pastikan key ini tersedia di backend
+        final img = data['data']['img'];
 
         final prefs = await SharedPreferences.getInstance();
         await prefs.setString('token', token);
         await prefs.setString('username', username);
-        await prefs.setString('img', img); // simpan foto profil
+        await prefs.setString('img', img);
 
         Get.snackbar('Berhasil', 'Login berhasil');
         Get.offAllNamed(Routes.HOME);
@@ -77,6 +79,41 @@ class LoginPageController extends GetxController {
       Get.snackbar('Error', 'Terjadi kesalahan: $e');
     } finally {
       isLoading.value = false;
+    }
+  }
+
+  Future<void> signInWithGoogle() async {
+    try {
+      final GoogleSignIn googleSignIn = GoogleSignIn(
+        scopes: ['email', 'profile'],
+      );
+
+      await googleSignIn.signOut(); // Optional: logout sebelumnya
+      final GoogleSignInAccount? googleUser = await googleSignIn.signIn();
+
+      if (googleUser == null) {
+        print("Login Google dibatalkan pengguna");
+        Get.snackbar("Login Dibatalkan", "Pengguna membatalkan login Google.");
+        return;
+      }
+
+      // Simpan data ke GetStorage dengan struktur yang sama seperti login API
+      // final box = get();
+      // box.write('userName', googleUser.displayName);
+      // box.write('userEmail', googleUser.email);
+      // box.write('userPassword', '*******'); // Kosong karena Google login
+      // box.write('authType', 'google'); // Buat pembeda
+
+
+      print("Login sukses: ${googleUser.displayName} (${googleUser.email})");
+
+      Get.snackbar("Sukses", "Login Google berhasil");
+
+      // Navigasi ke halaman utama
+      Get.offAllNamed(Routes.HOME);
+    } catch (e) {
+      print("Error saat login Google: $e");
+      Get.snackbar("Error", "Terjadi kesalahan saat login: $e");
     }
   }
 }
