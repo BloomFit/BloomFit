@@ -1,3 +1,5 @@
+import 'package:app_links/app_links.dart';
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
@@ -8,6 +10,36 @@ class LoginPageController extends GetxController {
   var email = ''.obs;
   var password = ''.obs;
   var isLoading = false.obs;
+
+  final AppLinks _appLinks = AppLinks();
+
+  @override
+  void onInit() {
+    super.onInit();
+    handleAppLink();
+  }
+
+  Future<void> handleAppLink() async {
+    try {
+      final latestLink = await _appLinks.getLatestLinkString();
+      if (latestLink != null) {
+        final uri = Uri.parse(latestLink);
+        print('Latest link: $latestLink');
+        print('Parsed path: ${uri.path}');
+
+        if (uri.path == '/login-auto') {
+          // Kamu bisa melakukan sesuatu, misalnya autofill atau login otomatis
+          email.value = uri.queryParameters['email'] ?? '';
+          password.value = uri.queryParameters['password'] ?? '';
+          if (email.isNotEmpty && password.isNotEmpty) {
+            await login(); // auto-login
+          }
+        }
+      }
+    } catch (e) {
+      print('Error getting app link: $e');
+    }
+  }
 
   Future<void> login() async {
     isLoading.value = true;
@@ -28,10 +60,12 @@ class LoginPageController extends GetxController {
       if (response.statusCode == 200) {
         final token = data['access_token'];
         final username = data['data']['username'];
+        final img = data['data']['img']; // pastikan key ini tersedia di backend
 
         final prefs = await SharedPreferences.getInstance();
         await prefs.setString('token', token);
         await prefs.setString('username', username);
+        await prefs.setString('img', img); // simpan foto profil
 
         Get.snackbar('Berhasil', 'Login berhasil');
         Get.offAllNamed(Routes.HOME);

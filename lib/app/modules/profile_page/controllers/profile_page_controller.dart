@@ -3,15 +3,21 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 class ProfilePageController extends GetxController {
   var username = ''.obs;
+  var img = ''.obs;
+  var trimester = ''.obs;
+  var usiaKehamilan = ''.obs;
 
   @override
   void onInit() {
     super.onInit();
-    loadUsername();
+    loadUserData();
   }
 
-  Future<void> loadUsername() async {
+  Future<void> loadUserData() async {
     final prefs = await SharedPreferences.getInstance();
     username.value = prefs.getString('username') ?? 'User';
+    img.value = prefs.getString('img') ?? '';
+    trimester.value = prefs.getString('trimester') ?? 'Trimester 1';
+    usiaKehamilan.value = prefs.getString('usiaKehamilan') ?? '3 Minggu';
   }
 }

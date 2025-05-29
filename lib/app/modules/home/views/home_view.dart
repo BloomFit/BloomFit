@@ -31,7 +31,6 @@ class HomeView extends GetView<HomeController> {
                 ),
               ),
             ),
-            // _buildBottomNavigationBar(),
           ],
         ),
       ),
@@ -44,20 +43,21 @@ class HomeView extends GetView<HomeController> {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          // Greeting di sebelah kiri
-          Expanded(
-            child: _buildGreeting(),
-          ),
-          // Foto profil di sebelah kanan
-          GestureDetector(
-            onTap: () {
-              Get.offAllNamed(Routes.PROFILE_PAGE);
-            },
-            child: const CircleAvatar(
-              radius: 30,
-              backgroundImage: AssetImage('assets/images/gweh.png'),
-            ),
-          ),
+          Expanded(child: _buildGreeting()),
+          Obx(() {
+            final imgUrl = controller.img.value;
+            return GestureDetector(
+              onTap: () {
+                Get.offAllNamed(Routes.PROFILE_PAGE);
+              },
+              child: CircleAvatar(
+                radius: 30,
+                backgroundImage: imgUrl.isNotEmpty
+                    ? NetworkImage(imgUrl)
+                    : const AssetImage('assets/images/gweh.png') as ImageProvider,
+              ),
+            );
+          }),
         ],
       ),
     );
@@ -68,14 +68,12 @@ class HomeView extends GetView<HomeController> {
       'Hello, ${controller.username.value}🧘🏼‍♀️️',
       style: const TextStyle(
         fontFamily: 'Poppins',
-        // fontFamily: , // Tambahkan font family yang sesuai
         fontSize: 25,
         color: Colors.black,
       ),
     ));
   }
 
-  // Widget untuk menampilkan Lottie animation
   Widget _buildLottieSection() {
     return Center(
       child: Container(
@@ -137,12 +135,11 @@ class HomeView extends GetView<HomeController> {
           Get.toNamed(Routes.ARTICLES);
         }),
         _buildMenuItem(Icons.video_library, 'Videos', accentColor, () {
-          // Navigate to video page when clicked
           Get.toNamed(Routes.VIDEO);
         }),
-        _buildMenuItem(Icons.data_object, 'Visualisasi', accentColor, (){
+        _buildMenuItem(Icons.data_object, 'Visualisasi', accentColor, () {
           Get.toNamed(Routes.VISUALIASI);
-        })
+        }),
       ],
     );
   }

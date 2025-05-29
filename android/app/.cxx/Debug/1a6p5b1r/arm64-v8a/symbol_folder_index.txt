@@ -1,0 +1,1 @@
+/home/yaseru/Documents/Semester 6/Capstone/BloomFit/build/app/intermediates/cxx/Debug/1a6p5b1r/obj/arm64-v8a
