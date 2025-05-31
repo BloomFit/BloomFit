@@ -30,7 +30,7 @@ class LoginPageController extends GetxController {
         print('Latest link: $latestLink');
         print('Parsed path: ${uri.path}');
 
-        if (uri.path == '/login-auto') {
+        if (uri.path == '/login-page') {
           email.value = uri.queryParameters['email'] ?? '';
           password.value = uri.queryParameters['password'] ?? '';
           if (email.isNotEmpty && password.isNotEmpty) {
@@ -84,36 +84,35 @@ class LoginPageController extends GetxController {
 
   Future<void> signInWithGoogle() async {
     try {
-      final GoogleSignIn googleSignIn = GoogleSignIn(
-        scopes: ['email', 'profile'],
-      );
+      final GoogleSignIn googleSignIn = GoogleSignIn(scopes: ['email', 'profile']);
 
-      await googleSignIn.signOut(); // Optional: logout sebelumnya
+      await googleSignIn.signOut(); // Optional: untuk reset login sebelumnya
       final GoogleSignInAccount? googleUser = await googleSignIn.signIn();
 
       if (googleUser == null) {
-        print("Login Google dibatalkan pengguna");
         Get.snackbar("Login Dibatalkan", "Pengguna membatalkan login Google.");
         return;
       }
 
-      // Simpan data ke GetStorage dengan struktur yang sama seperti login API
-      // final box = get();
-      // box.write('userName', googleUser.displayName);
-      // box.write('userEmail', googleUser.email);
-      // box.write('userPassword', '*******'); // Kosong karena Google login
-      // box.write('authType', 'google'); // Buat pembeda
+      // Ambil data user
+      final username = googleUser.displayName ?? 'User';
+      final email = googleUser.email;
+      final img = googleUser.photoUrl ?? '';
 
+      // Simpan ke SharedPreferences
+      final prefs = await SharedPreferences.getInstance();
+      await prefs.setString('username', username);
+      await prefs.setString('email', email);
+      await prefs.setString('img', img);
 
-      print("Login sukses: ${googleUser.displayName} (${googleUser.email})");
+      print("Login sukses: $username ($email)");
 
       Get.snackbar("Sukses", "Login Google berhasil");
-
-      // Navigasi ke halaman utama
       Get.offAllNamed(Routes.HOME);
     } catch (e) {
       print("Error saat login Google: $e");
       Get.snackbar("Error", "Terjadi kesalahan saat login: $e");
     }
   }
+
 }

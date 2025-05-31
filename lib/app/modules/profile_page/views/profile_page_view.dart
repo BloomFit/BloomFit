@@ -72,7 +72,7 @@ class ProfilePageView extends GetView<ProfilePageController> {
             style: GoogleFonts.dmSans(
               fontSize: 18,
               fontWeight: FontWeight.bold,
-              color: AppColorsDark.teksOnPrimary,
+              color: Colors.black,
             ),
           ),
           const SizedBox(width: 40),
@@ -104,10 +104,19 @@ class ProfilePageView extends GetView<ProfilePageController> {
               child: Column(
                 children: [
                   Obx(() => Text(
+                    controller.email.value,
+                    style: GoogleFonts.dmSans(
+                      fontSize: 15,
+                      fontWeight: FontWeight.bold,
+                      color: AppColorsDark.teksOnPrimary
+                    ),
+                  )),
+                  const SizedBox(height: 4),
+                  Obx(() => Text(
                     controller.username.value,
                     style: GoogleFonts.dmSans(
                       fontSize: 18,
-                      fontWeight: FontWeight.w500,
+                      fontWeight: FontWeight.normal,
                       color: AppColorsDark.teksOnPrimary,
                     ),
                   )),
