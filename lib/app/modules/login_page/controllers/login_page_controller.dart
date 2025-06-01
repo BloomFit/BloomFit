@@ -61,13 +61,18 @@ class LoginPageController extends GetxController {
 
       if (response.statusCode == 200) {
         final token = data['access_token'];
-        final username = data['data']['username'];
-        final img = data['data']['img'];
+        final userData = data['data'];
+        final username = userData['username'];
+        final img = userData['img'];
+        final id = userData['id'];
+        final emailValue = userData['email'];
 
         final prefs = await SharedPreferences.getInstance();
         await prefs.setString('token', token);
         await prefs.setString('username', username);
         await prefs.setString('img', img);
+        await prefs.setString('id', id);
+        await prefs.setString('email', emailValue);
 
         Get.snackbar('Berhasil', 'Login berhasil');
         Get.offAllNamed(Routes.HOME);
@@ -114,5 +119,4 @@ class LoginPageController extends GetxController {
       Get.snackbar("Error", "Terjadi kesalahan saat login: $e");
     }
   }
-
 }
