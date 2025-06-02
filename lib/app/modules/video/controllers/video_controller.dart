@@ -11,7 +11,7 @@ class VideoController extends GetxController {
   var videos = <VideoModel>[].obs;
   var selectedCategoryIndex = 0.obs;
 
-  final List<String> categories = ['All', 'Trimester 1', 'Trimester 2', 'Trimester 3'];
+  final List<String> categories = ['Semua', 'Trimester 1', 'Trimester 2', 'Trimester 3', 'Prenatal Yoga'];
 
   List<VideoModel> get filteredVideos {
     if (selectedCategoryIndex.value == 0) {
@@ -41,19 +41,22 @@ class VideoController extends GetxController {
         final category = categories[i];
         String searchQuery = '';
 
-        // Menyesuaikan query berdasarkan trimester
+        // Menyesuaikan query untuk senam ibu hamil Indonesia
         switch (category) {
           case 'Trimester 1':
-            searchQuery = 'pregnancy first trimester';
+            searchQuery = 'senam ibu hamil trimester 1 indonesia';
             break;
           case 'Trimester 2':
-            searchQuery = 'pregnancy second trimester';
+            searchQuery = 'senam ibu hamil trimester 2 indonesia';
             break;
           case 'Trimester 3':
-            searchQuery = 'pregnancy third trimester';
+            searchQuery = 'senam ibu hamil trimester 3 indonesia';
+            break;
+          case 'Prenatal Yoga':
+            searchQuery = 'prenatal yoga indonesia senam hamil';
             break;
           default:
-            searchQuery = 'pregnancy';
+            searchQuery = 'senam ibu hamil indonesia';
         }
 
         final categoryVideos = await _searchYouTubeVideos(searchQuery, category);
@@ -70,7 +73,7 @@ class VideoController extends GetxController {
       print('Error fetching YouTube videos: $e');
       Get.snackbar(
         'Error',
-        'Failed to fetch videos. Please try again later.',
+        'Gagal mengambil video. Silakan coba lagi nanti.',
         snackPosition: SnackPosition.BOTTOM,
         backgroundColor: Colors.red.withOpacity(0.7),
         colorText: Colors.white,
@@ -84,7 +87,7 @@ class VideoController extends GetxController {
     try {
       final encodedQuery = Uri.encodeComponent(query);
       final url = Uri.parse(
-        'https://www.googleapis.com/youtube/v3/search?part=snippet&maxResults=5&q=$encodedQuery&type=video&key=$API_KEY',
+        'https://www.googleapis.com/youtube/v3/search?part=snippet&maxResults=8&q=$encodedQuery&type=video&regionCode=ID&relevanceLanguage=id&key=$API_KEY',
       );
 
       final response = await http.get(url);
@@ -103,14 +106,14 @@ class VideoController extends GetxController {
 
           return VideoModel(
             id: videoId,
-            title: snippet['title'] ?? 'No title',
+            title: snippet['title'] ?? 'Tidak ada judul',
             description: snippet['description'] ?? '',
             thumbnailUrl: snippet['thumbnails']?['high']?['url'],
             videoUrl: 'https://www.youtube.com/watch?v=$videoId',
             publishedDate: _formatPublishedDate(snippet['publishedAt']),
             views: 0,
             category: category,
-            author: snippet['channelTitle'] ?? 'Unknown',
+            author: snippet['channelTitle'] ?? 'Tidak diketahui',
           );
         }).toList();
       } else {
@@ -125,9 +128,9 @@ class VideoController extends GetxController {
 
   String _formatPublishedDate(String dateString) {
     final date = DateTime.tryParse(dateString);
-    if (date == null) return 'Unknown Date';
-    final months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
-    return '${months[date.month - 1]} ${date.day}, ${date.year}';
+    if (date == null) return 'Tanggal Tidak Diketahui';
+    final months = ['Jan', 'Feb', 'Mar', 'Apr', 'Mei', 'Jun', 'Jul', 'Agu', 'Sep', 'Okt', 'Nov', 'Des'];
+    return '${date.day} ${months[date.month - 1]} ${date.year}';
   }
 
   void playVideo(VideoModel video) {
@@ -136,7 +139,7 @@ class VideoController extends GetxController {
     } else {
       Get.snackbar(
         'Error',
-        'Could not play the video',
+        'Tidak dapat memutar video',
         snackPosition: SnackPosition.BOTTOM,
         backgroundColor: Colors.red.withOpacity(0.7),
         colorText: Colors.white,
@@ -192,9 +195,13 @@ class _YouTubePlayerScreenState extends State<YouTubePlayerScreen> {
     return Scaffold(
       backgroundColor: const Color(0xFF252836),
       appBar: AppBar(
-        title: Text(widget.video.title),
+        title: Text(
+          widget.video.title,
+          style: const TextStyle(color: Colors.white),
+        ),
         backgroundColor: const Color(0xFF252836),
         elevation: 0,
+        iconTheme: const IconThemeData(color: Colors.white),
       ),
       body: Column(
         children: [
@@ -202,10 +209,10 @@ class _YouTubePlayerScreenState extends State<YouTubePlayerScreen> {
             player: YoutubePlayer(
               controller: _controller,
               showVideoProgressIndicator: true,
-              progressIndicatorColor: Colors.red,
+              progressIndicatorColor: Colors.pink,
               progressColors: const ProgressBarColors(
-                playedColor: Colors.red,
-                handleColor: Colors.redAccent,
+                playedColor: Colors.pink,
+                handleColor: Colors.pinkAccent,
               ),
             ),
             builder: (context, player) {
@@ -234,14 +241,26 @@ class _YouTubePlayerScreenState extends State<YouTubePlayerScreen> {
                   const SizedBox(height: 8),
                   Row(
                     children: [
+                      Icon(
+                        Icons.account_circle,
+                        color: Colors.grey[400],
+                        size: 16,
+                      ),
+                      const SizedBox(width: 4),
                       Text(
-                        widget.video.author ?? 'Unknown',
+                        widget.video.author ?? 'Tidak diketahui',
                         style: TextStyle(
                           color: Colors.grey[400],
                           fontSize: 14,
                         ),
                       ),
                       const SizedBox(width: 16),
+                      Icon(
+                        Icons.calendar_today,
+                        color: Colors.grey[400],
+                        size: 16,
+                      ),
+                      const SizedBox(width: 4),
                       Text(
                         widget.video.publishedDate,
                         style: TextStyle(
@@ -251,23 +270,94 @@ class _YouTubePlayerScreenState extends State<YouTubePlayerScreen> {
                       ),
                     ],
                   ),
+                  const SizedBox(height: 8),
+                  Container(
+                    padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
+                    decoration: BoxDecoration(
+                      color: Colors.pink.withOpacity(0.2),
+                      borderRadius: BorderRadius.circular(20),
+                      border: Border.all(color: Colors.pink.withOpacity(0.5)),
+                    ),
+                    child: Text(
+                      widget.video.category ?? 'Senam Ibu Hamil',
+                      style: const TextStyle(
+                        color: Colors.pink,
+                        fontSize: 12,
+                        fontWeight: FontWeight.w500,
+                      ),
+                    ),
+                  ),
                   const SizedBox(height: 16),
                   const Divider(color: Colors.grey),
                   const SizedBox(height: 16),
-                  Text(
-                    'Description',
-                    style: TextStyle(
-                      color: Colors.grey[300],
-                      fontSize: 16,
-                      fontWeight: FontWeight.bold,
-                    ),
+                  Row(
+                    children: [
+                      Icon(
+                        Icons.description,
+                        color: Colors.grey[300],
+                        size: 20,
+                      ),
+                      const SizedBox(width: 8),
+                      Text(
+                        'Deskripsi',
+                        style: TextStyle(
+                          color: Colors.grey[300],
+                          fontSize: 16,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                    ],
                   ),
                   const SizedBox(height: 8),
                   Text(
-                    widget.video.description,
+                    widget.video.description.isNotEmpty
+                        ? widget.video.description
+                        : 'Video senam ibu hamil untuk menjaga kesehatan dan kebugaran selama masa kehamilan.',
                     style: TextStyle(
                       color: Colors.grey[400],
                       fontSize: 14,
+                      height: 1.5,
+                    ),
+                  ),
+                  const SizedBox(height: 16),
+                  Container(
+                    padding: const EdgeInsets.all(12),
+                    decoration: BoxDecoration(
+                      color: Colors.pink.withOpacity(0.1),
+                      borderRadius: BorderRadius.circular(8),
+                      border: Border.all(color: Colors.pink.withOpacity(0.3)),
+                    ),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Row(
+                          children: [
+                            Icon(
+                              Icons.info_outline,
+                              color: Colors.pink,
+                              size: 20,
+                            ),
+                            const SizedBox(width: 8),
+                            Text(
+                              'Tips Senam Ibu Hamil',
+                              style: TextStyle(
+                                color: Colors.pink,
+                                fontSize: 14,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                          ],
+                        ),
+                        const SizedBox(height: 8),
+                        Text(
+                          '• Lakukan dengan gerakan pelan dan hati-hati\n• Konsultasikan dengan dokter terlebih dahulu\n• Hentikan jika merasa tidak nyaman\n• Minum air yang cukup selama olahraga',
+                          style: TextStyle(
+                            color: Colors.grey[300],
+                            fontSize: 12,
+                            height: 1.4,
+                          ),
+                        ),
+                      ],
                     ),
                   ),
                 ],
