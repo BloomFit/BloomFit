@@ -10,6 +10,7 @@ import 'package:google_sign_in/google_sign_in.dart';
 import '../../../routes/app_pages.dart';
 
 class LoginPageController extends GetxController {
+
   var email = ''.obs;
   var password = ''.obs;
   var isLoading = false.obs;

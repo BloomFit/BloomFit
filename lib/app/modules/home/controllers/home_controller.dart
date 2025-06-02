@@ -3,7 +3,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 class HomeController extends GetxController {
   var username = ''.obs;
-  var img = ''.obs; // Tambahkan variabel img
+  var img = ''.obs;
 
   @override
   void onInit() {
