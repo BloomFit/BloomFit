@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:mobile_app/app/constants/colors.dart';
+import 'package:mobile_app/app/routes/app_pages.dart';
 import '../controllers/articles_controller.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 class ArticlesView extends GetView<ArticlesController> {
   const ArticlesView({super.key});
@@ -15,76 +18,112 @@ class ArticlesView extends GetView<ArticlesController> {
           headerSliverBuilder: (context, innerBoxIsScrolled) {
             return [
               SliverAppBar(
+                automaticallyImplyLeading: false,
                 expandedHeight: 180,
                 floating: true,
                 pinned: true,
                 stretch: true,
                 backgroundColor: Colors.white,
                 flexibleSpace: FlexibleSpaceBar(
-                  background: Container(
-                    decoration: BoxDecoration(
-                      gradient: LinearGradient(
-                        begin: Alignment.topCenter,
-                        end: Alignment.bottomCenter,
-                        colors: [
-                          Colors.pinkAccent,
-                          Colors.white,
-                        ],
-                      ),
-                    ),
-                    child: SafeArea(
-                      child: Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 16.0),
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            const SizedBox(height: 20),
-                            const Text(
-                              'BloomFit',
-                              style: TextStyle(
-                                fontSize: 28,
-                                fontWeight: FontWeight.bold,
-                                color: Colors.white,
-                              ),
-                            ),
-                            const Text(
-                              'Artikel terbaru ibu hamil yang sehat',
-                              style: TextStyle(
-                                fontSize: 16,
-                                color: Colors.white70,
-                              ),
-                            ),
-                            const SizedBox(height: 20),
-                            Container(
-                              decoration: BoxDecoration(
-                                color: Colors.white,
-                                borderRadius: BorderRadius.circular(12),
-                                boxShadow: [
-                                  BoxShadow(
-                                    color: Colors.black.withOpacity(0.1),
-                                    blurRadius: 10,
-                                    offset: const Offset(0, 5),
-                                  ),
-                                ],
-                              ),
-                              child: TextField(
-                                controller: controller.searchController,
-                                onChanged: controller.setSearchQuery,
-                                decoration: InputDecoration(
-                                  hintText: 'Cari artikel...',
-                                  prefixIcon: const Icon(Icons.search, color: Colors.pinkAccent),
-                                  border: OutlineInputBorder(
-                                    borderRadius: BorderRadius.circular(12),
-                                    borderSide: BorderSide.none,
-                                  ),
-                                  contentPadding: const EdgeInsets.symmetric(vertical: 16),
-                                ),
-                              ),
-                            ),
-                          ],
+                  background: Stack(
+                    children: [
+                      Container(
+                        decoration: const BoxDecoration(
+                          gradient: LinearGradient(
+                            begin: Alignment.topCenter,
+                            end: Alignment.bottomCenter,
+                            colors: [
+                              Colors.pinkAccent,
+                              Colors.white,
+                            ],
+                          ),
                         ),
                       ),
-                    ),
+                      SafeArea(
+                        child: Padding(
+                          padding: const EdgeInsets.symmetric(horizontal: 16.0),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              const SizedBox(height: 20),
+                              Row(
+                                crossAxisAlignment: CrossAxisAlignment.center,
+                                children: [
+                                  GestureDetector(
+                                    onTap: () {
+                                      Get.offAllNamed(Routes.HOME);
+                                    },
+                                    child: Container(
+                                      padding: const EdgeInsets.all(8),
+                                      decoration: BoxDecoration(
+                                        color: AppColorsDark.aksen,
+                                        borderRadius: BorderRadius.circular(8),
+                                        boxShadow: const [
+                                          BoxShadow(
+                                              color: Color(0xFF575757),
+                                              offset: Offset(-1, -1),
+                                              blurRadius: 2),
+                                          BoxShadow(
+                                              color: Color(0xFF000000),
+                                              offset: Offset(1, 1),
+                                              blurRadius: 2),
+                                        ],
+                                      ),
+                                      child: Icon(Icons.arrow_back,
+                                          color: AppColorsDark.teksOnPrimary, size: 20),
+                                    ),
+                                  ),
+                                  const SizedBox(width: 12),
+                                  Expanded(
+                                    child: Center(
+                                      child: const Text(
+                                        'BloomFit',
+                                        style: TextStyle(
+                                          fontSize: 28,
+                                          fontWeight: FontWeight.bold,
+                                          color: Colors.white,
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                                  SizedBox(width: 40),
+                                ],
+                              ),
+                              const SizedBox(height: 6),
+                              const SizedBox(height: 20),
+                              Container(
+                                decoration: BoxDecoration(
+                                  color: Colors.white,
+                                  borderRadius: BorderRadius.circular(12),
+                                  boxShadow: [
+                                    BoxShadow(
+                                      color: Colors.black.withOpacity(0.1),
+                                      blurRadius: 10,
+                                      offset: const Offset(0, 5),
+                                    ),
+                                  ],
+                                ),
+                                child: TextField(
+                                  controller: controller.searchController,
+                                  onChanged: controller.setSearchQuery,
+                                  decoration: InputDecoration(
+                                    hintText: 'Cari artikel...',
+                                    prefixIcon: const Icon(Icons.search,
+                                        color: Colors.pinkAccent),
+                                    border: OutlineInputBorder(
+                                      borderRadius: BorderRadius.circular(12),
+                                      borderSide: BorderSide.none,
+                                    ),
+                                    contentPadding:
+                                    const EdgeInsets.symmetric(vertical: 16),
+                                  ),
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                      ),
+                    ],
                   ),
                 ),
               ),
@@ -97,7 +136,8 @@ class ArticlesView extends GetView<ArticlesController> {
                 ),
               ),
             ];
-          },
+          }
+          ,
           body: controller.filteredArticles.isEmpty
               ? const Center(
             child: Text(
@@ -329,231 +369,289 @@ class ArticleDetailView extends StatelessWidget {
 
   const ArticleDetailView({super.key, required this.article});
 
+  Widget _buildAppBar() {
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 16.0),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          GestureDetector(
+            onTap: () {
+              Get.offAllNamed(Routes.HOME);
+            },
+            child: Container(
+              padding: const EdgeInsets.all(8),
+              decoration: BoxDecoration(
+                color: AppColorsDark.aksen,
+                borderRadius: BorderRadius.circular(8),
+                boxShadow: const [
+                  BoxShadow(color: Color(0xFF575757), offset: Offset(-1, -1), blurRadius: 2),
+                  BoxShadow(color: Color(0xFF000000), offset: Offset(1, 1), blurRadius: 2),
+                ],
+              ),
+              child: Icon(Icons.arrow_back, color: AppColorsDark.teksOnPrimary, size: 20),
+            ),
+          ),
+          Text(
+            "Article Detail",
+            style: GoogleFonts.dmSans(
+              fontSize: 18,
+              fontWeight: FontWeight.bold,
+              color: Colors.black,
+            ),
+          ),
+          const SizedBox(width: 40),
+        ],
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: CustomScrollView(
-        slivers: [
-          SliverAppBar(
-            expandedHeight: 250,
-            pinned: true,
-            stretch: true,
-            flexibleSpace: FlexibleSpaceBar(
-              background: Image.network(
-                article.imageUrl,
-                fit: BoxFit.cover,
-                errorBuilder: (context, error, stackTrace) =>
+      body: SafeArea(
+        child: Column(
+          children: [
+            const SizedBox(height: 16),
+            _buildAppBar(),
+            const SizedBox(height: 16),
+            Expanded(
+              child: SingleChildScrollView(
+                child: Column(
+                  children: [
+                    // Hero Image
                     Container(
-                      color: Colors.grey.shade300,
-                      child: const Icon(Icons.image_not_supported, size: 50,
-                          color: Colors.grey),
-                    ),
-              ),
-              stretchModes: const [
-                StretchMode.zoomBackground,
-                StretchMode.blurBackground,
-              ],
-            ),
-          ),
-          SliverToBoxAdapter(
-            child: Padding(
-              padding: const EdgeInsets.all(16),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Row(
-                    children: [
-                      Container(
-                        padding: const EdgeInsets.symmetric(
-                            horizontal: 12, vertical: 6),
-                        decoration: BoxDecoration(
-                          color: Colors.blue,
-                          borderRadius: BorderRadius.circular(16),
-                        ),
-                        child: Text(
-                          article.category,
-                          style: const TextStyle(
-                            color: Colors.white,
-                            fontWeight: FontWeight.bold,
-                            fontSize: 12,
+                      height: 250,
+                      margin: const EdgeInsets.symmetric(horizontal: 16),
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(16),
+                        boxShadow: [
+                          BoxShadow(
+                            color: Colors.black.withOpacity(0.1),
+                            blurRadius: 10,
+                            offset: const Offset(0, 5),
                           ),
+                        ],
+                      ),
+                      child: ClipRRect(
+                        borderRadius: BorderRadius.circular(16),
+                        child: Image.network(
+                          article.imageUrl,
+                          fit: BoxFit.cover,
+                          width: double.infinity,
+                          errorBuilder: (context, error, stackTrace) =>
+                              Container(
+                                color: Colors.grey.shade300,
+                                child: const Icon(Icons.image_not_supported, size: 50,
+                                    color: Colors.grey),
+                              ),
                         ),
                       ),
-                      const Spacer(),
-                      Text(
-                        article.date,
-                        style: TextStyle(
-                          color: Colors.grey.shade600,
-                          fontSize: 14,
-                        ),
-                      ),
-                    ],
-                  ),
-                  const SizedBox(height: 16),
-                  Text(
-                    article.title,
-                    style: const TextStyle(
-                      fontSize: 24,
-                      fontWeight: FontWeight.bold,
                     ),
-                  ),
-                  const SizedBox(height: 16),
-                  Row(
-                    children: [
-                      CircleAvatar(
-                        backgroundColor: Colors.primaries[article.id %
-                            Colors.primaries.length],
-                        radius: 20,
-                        child: Text(
-                          article.author[0],
-                          style: const TextStyle(
-                            color: Colors.white,
-                            fontWeight: FontWeight.bold,
-                          ),
-                        ),
-                      ),
-                      const SizedBox(width: 12),
-                      Column(
+                    const SizedBox(height: 24),
+                    // Content
+                    Padding(
+                      padding: const EdgeInsets.all(16),
+                      child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
+                          Row(
+                            children: [
+                              Container(
+                                padding: const EdgeInsets.symmetric(
+                                    horizontal: 12, vertical: 6),
+                                decoration: BoxDecoration(
+                                  color: Colors.blue,
+                                  borderRadius: BorderRadius.circular(16),
+                                ),
+                                child: Text(
+                                  article.category,
+                                  style: const TextStyle(
+                                    color: Colors.white,
+                                    fontWeight: FontWeight.bold,
+                                    fontSize: 12,
+                                  ),
+                                ),
+                              ),
+                              const Spacer(),
+                              Text(
+                                article.date,
+                                style: TextStyle(
+                                  color: Colors.grey.shade600,
+                                  fontSize: 14,
+                                ),
+                              ),
+                            ],
+                          ),
+                          const SizedBox(height: 16),
                           Text(
-                            article.author,
+                            article.title,
                             style: const TextStyle(
+                              fontSize: 24,
                               fontWeight: FontWeight.bold,
-                              fontSize: 16,
                             ),
                           ),
+                          const SizedBox(height: 16),
+                          Row(
+                            children: [
+                              CircleAvatar(
+                                backgroundColor: Colors.primaries[article.id %
+                                    Colors.primaries.length],
+                                radius: 20,
+                                child: Text(
+                                  article.author[0],
+                                  style: const TextStyle(
+                                    color: Colors.white,
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                                ),
+                              ),
+                              const SizedBox(width: 12),
+                              Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Text(
+                                    article.author,
+                                    style: const TextStyle(
+                                      fontWeight: FontWeight.bold,
+                                      fontSize: 16,
+                                    ),
+                                  ),
+                                  Text(
+                                    '${article.readTime} min read',
+                                    style: TextStyle(
+                                      color: Colors.grey.shade600,
+                                      fontSize: 12,
+                                    ),
+                                  ),
+                                ],
+                              ),
+                              const Spacer(),
+                              GetBuilder<ArticlesController>(
+                                builder: (controller) {
+                                  final isFavorite = controller.articles
+                                      .firstWhere((a) => a.id == article.id)
+                                      .isFavorite;
+                                  return IconButton(
+                                    onPressed: () =>
+                                        controller.toggleFavorite(article.id),
+                                    icon: Icon(
+                                      isFavorite ? Icons.favorite : Icons
+                                          .favorite_border,
+                                      color: isFavorite ? Colors.red : Colors.grey,
+                                    ),
+                                  );
+                                },
+                              ),
+                            ],
+                          ),
+                          const SizedBox(height: 24),
                           Text(
-                            '${article.readTime} min read',
+                            '${article.content}\n\nTerima kasih telah membaca!',
+                            style: const TextStyle(
+                              fontSize: 16,
+                              height: 1.6,
+                            ),
+                          ),
+                          const SizedBox(height: 32),
+                          const Text(
+                            'Artikel Terkait',
                             style: TextStyle(
-                              color: Colors.grey.shade600,
-                              fontSize: 12,
+                              fontSize: 20,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                          const SizedBox(height: 16),
+                          SizedBox(
+                            height: 200,
+                            child: GetBuilder<ArticlesController>(
+                              builder: (controller) {
+                                final relatedArticles = controller.articles
+                                    .where((a) =>
+                                a.id != article.id && a.category == article.category)
+                                    .take(3)
+                                    .toList();
+
+                                if (relatedArticles.isEmpty) {
+                                  return Center(
+                                    child: Text(
+                                      'Tidak ada artikel terkait',
+                                      style: TextStyle(color: Colors.grey.shade600),
+                                    ),
+                                  );
+                                }
+
+                                return ListView.builder(
+                                  scrollDirection: Axis.horizontal,
+                                  itemCount: relatedArticles.length,
+                                  itemBuilder: (context, index) {
+                                    final relatedArticle = relatedArticles[index];
+                                    return GestureDetector(
+                                      onTap: () {
+                                        Get.off(() =>
+                                            ArticleDetailView(article: relatedArticle));
+                                      },
+                                      child: Container(
+                                        width: 250,
+                                        margin: const EdgeInsets.only(right: 16),
+                                        child: Column(
+                                          crossAxisAlignment: CrossAxisAlignment.start,
+                                          children: [
+                                            ClipRRect(
+                                              borderRadius: BorderRadius.circular(12),
+                                              child: Image.network(
+                                                relatedArticle.imageUrl,
+                                                height: 120,
+                                                width: 250,
+                                                fit: BoxFit.cover,
+                                                errorBuilder: (context, error,
+                                                    stackTrace) =>
+                                                    Container(
+                                                      height: 120,
+                                                      width: 250,
+                                                      color: Colors.grey.shade300,
+                                                      child: const Icon(
+                                                          Icons.image_not_supported,
+                                                          size: 30, color: Colors.grey),
+                                                    ),
+                                              ),
+                                            ),
+                                            const SizedBox(height: 8),
+                                            Text(
+                                              relatedArticle.title,
+                                              style: const TextStyle(
+                                                fontWeight: FontWeight.bold,
+                                                fontSize: 14,
+                                              ),
+                                              maxLines: 2,
+                                              overflow: TextOverflow.ellipsis,
+                                            ),
+                                            const SizedBox(height: 4),
+                                            Text(
+                                              relatedArticle.author,
+                                              style: TextStyle(
+                                                color: Colors.grey.shade600,
+                                                fontSize: 12,
+                                              ),
+                                            ),
+                                          ],
+                                        ),
+                                      ),
+                                    );
+                                  },
+                                );
+                              },
                             ),
                           ),
                         ],
                       ),
-                      const Spacer(),
-                      GetBuilder<ArticlesController>(
-                        builder: (controller) {
-                          final isFavorite = controller.articles
-                              .firstWhere((a) => a.id == article.id)
-                              .isFavorite;
-                          return IconButton(
-                            onPressed: () =>
-                                controller.toggleFavorite(article.id),
-                            icon: Icon(
-                              isFavorite ? Icons.favorite : Icons
-                                  .favorite_border,
-                              color: isFavorite ? Colors.red : Colors.grey,
-                            ),
-                          );
-                        },
-                      ),
-                    ],
-                  ),
-                  const SizedBox(height: 24),
-                  Text(
-                    '${article.content}\n\nTerima kasih telah membaca!',
-                    style: const TextStyle(
-                      fontSize: 16,
-                      height: 1.6,
                     ),
-                  ),
-                  const SizedBox(height: 32),
-                  const Text(
-                    'Artikel Terkait',
-                    style: TextStyle(
-                      fontSize: 20,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                  const SizedBox(height: 16),
-                  SizedBox(
-                    height: 200,
-                    child: GetBuilder<ArticlesController>(
-                      builder: (controller) {
-                        final relatedArticles = controller.articles
-                            .where((a) =>
-                        a.id != article.id && a.category == article.category)
-                            .take(3)
-                            .toList();
-
-                        if (relatedArticles.isEmpty) {
-                          return Center(
-                            child: Text(
-                              'Tidak ada artikel terkait',
-                              style: TextStyle(color: Colors.grey.shade600),
-                            ),
-                          );
-                        }
-
-                        return ListView.builder(
-                          scrollDirection: Axis.horizontal,
-                          itemCount: relatedArticles.length,
-                          itemBuilder: (context, index) {
-                            final relatedArticle = relatedArticles[index];
-                            return GestureDetector(
-                              onTap: () {
-                                Get.off(() =>
-                                    ArticleDetailView(article: relatedArticle));
-                              },
-                              child: Container(
-                                width: 250,
-                                margin: const EdgeInsets.only(right: 16),
-                                child: Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    ClipRRect(
-                                      borderRadius: BorderRadius.circular(12),
-                                      child: Image.network(
-                                        relatedArticle.imageUrl,
-                                        height: 120,
-                                        width: 250,
-                                        fit: BoxFit.cover,
-                                        errorBuilder: (context, error,
-                                            stackTrace) =>
-                                            Container(
-                                              height: 120,
-                                              width: 250,
-                                              color: Colors.grey.shade300,
-                                              child: const Icon(
-                                                  Icons.image_not_supported,
-                                                  size: 30, color: Colors.grey),
-                                            ),
-                                      ),
-                                    ),
-                                    const SizedBox(height: 8),
-                                    Text(
-                                      relatedArticle.title,
-                                      style: const TextStyle(
-                                        fontWeight: FontWeight.bold,
-                                        fontSize: 14,
-                                      ),
-                                      maxLines: 2,
-                                      overflow: TextOverflow.ellipsis,
-                                    ),
-                                    const SizedBox(height: 4),
-                                    Text(
-                                      relatedArticle.author,
-                                      style: TextStyle(
-                                        color: Colors.grey.shade600,
-                                        fontSize: 12,
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                              ),
-                            );
-                          },
-                        );
-                      },
-                    ),
-                  ),
-                ],
+                  ],
+                ),
               ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }

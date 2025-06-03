@@ -98,6 +98,160 @@ class ArticlesController extends GetxController {
         date: '23 April 2025',
         readTime: 5,
       ),
+      Article(
+        id: 7,
+        title: 'Senam Air untuk Ibu Hamil: Manfaat dan Cara Melakukannya',
+        author: 'Dr. Kartika Dewi',
+        category: 'Olahraga',
+        imageUrl: 'https://images.unsplash.com/photo-1544551763-46a013bb70d5?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8c3dpbW1pbmclMjBwcmVnbmFudHxlbnwwfHwwfHx8MA%3D%3D',
+        content:
+        'Senam air atau aqua prenatal menjadi pilihan favorit banyak ibu hamil karena memberikan dukungan alami pada perut dan mengurangi tekanan pada sendi.',
+        date: '21 April 2025',
+        readTime: 7,
+      ),
+      Article(
+        id: 8,
+        title: 'Breathing Exercise: Teknik Pernapasan dalam Senam Hamil',
+        author: 'Bid. Anastasia',
+        category: 'Teknik',
+        imageUrl: 'https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8M3x8YnJlYXRoaW5nJTIwZXhlcmNpc2V8ZW58MHx8MHx8fDA%3D',
+        content:
+        'Teknik pernapasan yang benar sangat penting dalam senam ibu hamil. Pelajari berbagai teknik breathing yang dapat membantu relaksasi dan persiapan persalinan.',
+        date: '19 April 2025',
+        readTime: 6,
+      ),
+      Article(
+        id: 9,
+        title: 'Senam Kegel: Memperkuat Otot Dasar Panggul',
+        author: 'Dr. Fitri Handayani',
+        category: 'Kesehatan',
+        imageUrl: 'https://images.unsplash.com/photo-1506629905607-d5b2d70fab8a?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NHx8a2VnZWwlMjBleGVyY2lzZXxlbnwwfHwwfHx8MA%3D%3D',
+        content:
+        'Senam Kegel merupakan latihan sederhana namun sangat efektif untuk memperkuat otot dasar panggul yang penting untuk proses persalinan dan pemulihan pasca melahirkan.',
+        date: '17 April 2025',
+        readTime: 5,
+      ),
+      Article(
+        id: 10,
+        title: 'Yoga Prenatal: Menyelaraskan Tubuh dan Pikiran',
+        author: 'Instruktur Devi Maharani',
+        category: 'Yoga',
+        imageUrl: 'https://images.unsplash.com/photo-1588286840104-8957b019727f?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTJ8fHByZW5hdGFsJTIweW9nYXxlbnwwfHwwfHx8MA%3D%3D',
+        content:
+        'Yoga prenatal menggabungkan gerakan lembut, pernapasan, dan meditasi untuk menciptakan keseimbangan fisik dan mental selama kehamilan.',
+        date: '15 April 2025',
+        readTime: 8,
+      ),
+      Article(
+        id: 11,
+        title: 'Senam Hamil Trimester Pertama: Apa yang Boleh dan Tidak Boleh',
+        author: 'Dr. Wahyu Pratama',
+        category: 'Panduan',
+        imageUrl: 'https://images.unsplash.com/photo-1583454110551-21f2fa2afe61?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTh8fGVhcmx5JTIwcHJlZ25hbmN5fGVufDB8fDB8fHww',
+        content:
+        'Trimester pertama adalah periode sensitif dalam kehamilan. Pelajari aktivitas fisik yang aman dan yang harus dihindari pada masa awal kehamilan.',
+        date: '13 April 2025',
+        readTime: 6,
+      ),
+      Article(
+        id: 12,
+        title: 'Senam Hamil untuk Mengatasi Morning Sickness',
+        author: 'Bid. Indira Sari',
+        category: 'Tips Kehamilan',
+        imageUrl: 'https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8N3x8bW9ybmluZyUyMHNpY2tuZXNzfGVufDB8fDB8fHww',
+        content:
+        'Beberapa gerakan senam ringan dapat membantu mengurangi gejala morning sickness dan meningkatkan energi di pagi hari.',
+        date: '11 April 2025',
+        readTime: 5,
+      ),
+      Article(
+        id: 13,
+        title: 'Peregangan untuk Mengurangi Sakit Punggung saat Hamil',
+        author: 'Fisioterapis Rudi Setiawan',
+        category: 'Terapi',
+        imageUrl: 'https://images.unsplash.com/photo-1559827260-dc66d52bef19?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTB8fGJhY2slMjBwYWlufGVufDB8fDB8fHww',
+        content:
+        'Sakit punggung adalah keluhan umum ibu hamil. Gerakan peregangan yang tepat dapat membantu meredakan nyeri dan mencegah ketegangan otot.',
+        date: '9 April 2025',
+        readTime: 7,
+      ),
+      Article(
+        id: 14,
+        title: 'Senam Hamil Trimester Ketiga: Persiapan Menuju Persalinan',
+        author: 'Dr. Amelia Putri',
+        category: 'Persiapan Persalinan',
+        imageUrl: 'https://images.unsplash.com/photo-1578662996442-48f60103fc96?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTV8fGxhdGUlMjBwcmVnbmFuY3l8ZW58MHx8MHx8fDA%3D',
+        content:
+        'Trimester ketiga adalah waktu persiapan intensif menuju persalinan. Senam pada periode ini fokus pada penguatan dan persiapan mental.',
+        date: '7 April 2025',
+        readTime: 8,
+      ),
+      Article(
+        id: 15,
+        title: 'Senam Hamil dengan Bola Pilates: Teknik dan Manfaatnya',
+        author: 'Instruktur Pilates Sarah',
+        category: 'Peralatan',
+        imageUrl: 'https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8OHx8cGlsYXRlcyUyMGJhbGx8ZW58MHx8MHx8fDA%3D',
+        content:
+        'Bola pilates atau birthing ball adalah alat bantu yang sangat efektif dalam senam ibu hamil. Pelajari cara penggunaan yang benar dan manfaatnya.',
+        date: '5 April 2025',
+        readTime: 6,
+      ),
+      Article(
+        id: 16,
+        title: 'Senam untuk Ibu Hamil Kembar: Panduan Khusus',
+        author: 'Dr. Ratna Sari Dewi',
+        category: 'Kehamilan Khusus',
+        imageUrl: 'https://images.unsplash.com/photo-1559827260-dc66d52bef19?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTJ8fHR3aW4lMjBwcmVnbmFuY3l8ZW58MHx8MHx8fDA%3D',
+        content:
+        'Kehamilan kembar memerlukan perhatian khusus dalam aktivitas fisik. Panduan senam yang disesuaikan dengan kondisi kehamilan multipel.',
+        date: '3 April 2025',
+        readTime: 7,
+      ),
+      Article(
+        id: 17,
+        title: 'Meditasi dan Relaksasi dalam Senam Ibu Hamil',
+        author: 'Instruktur Mindfulness Lina',
+        category: 'Mental Health',
+        imageUrl: 'https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NXx8bWVkaXRhdGlvbnxlbnwwfHwwfHx8MA%3D%3D',
+        content:
+        'Kombinasi antara gerakan fisik dengan teknik meditasi dan relaksasi dapat memberikan manfaat holistik untuk ibu dan bayi.',
+        date: '1 April 2025',
+        readTime: 6,
+      ),
+      Article(
+        id: 18,
+        title: 'Senam Hamil untuk Ibu Bekerja: Tips Efisien di Kantor',
+        author: 'Dr. Melissa Anggraini',
+        category: 'Lifestyle',
+        imageUrl: 'https://images.unsplash.com/photo-1551836022-d5d88e9218df?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTN8fHdvcmtpbmclMjBwcmVnbmFudHxlbnwwfHwwfHx8MA%3D%3D',
+        content:
+        'Ibu hamil yang bekerja dapat melakukan gerakan senam ringan di kantor untuk menjaga kesehatan dan mengurangi kelelahan.',
+        date: '30 Maret 2025',
+        readTime: 5,
+      ),
+      Article(
+        id: 19,
+        title: 'Senam Pasca Melahirkan: Memulihkan Kekuatan Tubuh',
+        author: 'Fisioterapis Wanda',
+        category: 'Postpartum',
+        imageUrl: 'https://images.unsplash.com/photo-1578662996442-48f60103fc96?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8OHx8cG9zdHBhcnR1bXxlbnwwfHwwfHx8MA%3D%3D',
+        content:
+        'Setelah melahirkan, tubuh membutuhkan waktu untuk pulih. Senam postpartum yang tepat dapat mempercepat proses pemulihan dengan aman.',
+        date: '28 Maret 2025',
+        readTime: 7,
+      ),
+      Article(
+        id: 20,
+        title: 'Nutrisi dan Hidrasi saat Senam Hamil',
+        author: 'Ahli Gizi Dr. Putri Lestari',
+        category: 'Nutrisi',
+        imageUrl: 'https://images.unsplash.com/photo-1559827260-dc66d52bef19?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTZ8fGh5ZHJhdGlvbnxlbnwwfHwwfHx8MA%3D%3D',
+        content:
+        'Memahami kebutuhan nutrisi dan hidrasi yang tepat sebelum, selama, dan setelah senam adalah kunci untuk menjaga energi dan kesehatan ibu hamil.',
+        date: '26 Maret 2025',
+        readTime: 6,
+      ),
     ];
 
     articles.value = sampleArticles;

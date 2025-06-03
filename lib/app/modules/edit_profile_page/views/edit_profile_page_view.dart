@@ -28,7 +28,7 @@ class EditProfilePageView extends GetView<EditProfilePageController> {
   @override
   Widget build(BuildContext context) {
     usernameController.text = controller.username.value;
-    oldUsername = controller.username.value; // Simpan username lama
+    oldUsername = controller.username.value;
 
     selectedTrimester.value = controller.trimester.value;
     selectedUsia.value = controller.usiaKehamilan.value;
@@ -121,7 +121,6 @@ class EditProfilePageView extends GetView<EditProfilePageController> {
       onPressed: () async {
         String newUsername = usernameController.text;
 
-        // Cetak username lama dan baru
         print('Username sebelumnya: $oldUsername');
         print('Username baru: $newUsername');
 
