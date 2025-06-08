@@ -13,6 +13,7 @@ abstract class Routes {
   static const ARTICLES = _Paths.ARTICLES;
   static const DETECTION_PAGE = _Paths.DETECTION_PAGE;
   static const VISUALIASI = _Paths.VISUALIASI;
+  static const ACTIVITY = _Paths.ACTIVITY;
 }
 
 abstract class _Paths {
@@ -27,4 +28,5 @@ abstract class _Paths {
   static const ARTICLES = '/articles';
   static const DETECTION_PAGE = '/detection-page';
   static const VISUALIASI = '/visualiasi';
+  static const ACTIVITY = '/activity';
 }

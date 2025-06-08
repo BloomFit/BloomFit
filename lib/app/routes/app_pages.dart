@@ -1,5 +1,7 @@
 import 'package:get/get.dart';
 
+import '../modules/activity/bindings/activity_binding.dart';
+import '../modules/activity/views/activity_view.dart';
 import '../modules/articles/bindings/articles_binding.dart';
 import '../modules/articles/views/articles_view.dart';
 import '../modules/detection_page/bindings/detection_page_binding.dart';
@@ -56,7 +58,7 @@ class AppPages {
     ),
     GetPage(
       name: _Paths.EDIT_PROFILE_PAGE,
-      page: () =>  EditProfilePageView(),
+      page: () => EditProfilePageView(),
       binding: EditProfilePageBinding(),
     ),
     GetPage(
@@ -78,6 +80,11 @@ class AppPages {
       name: _Paths.VISUALIASI,
       page: () => SenamIbuHamilView(),
       binding: VisualiasiBinding(),
+    ),
+    GetPage(
+      name: _Paths.ACTIVITY,
+      page: () => const ActivityView(),
+      binding: ActivityBinding(),
     ),
   ];
 }
