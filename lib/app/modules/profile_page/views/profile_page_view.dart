@@ -149,32 +149,63 @@ class ProfilePageView extends GetView<ProfilePageController> {
 
         Positioned(
           top: 75,
-          right: 30,
-          child: GestureDetector(
-            onTap: () {
-              Get.offAllNamed(Routes.EDIT_PROFILE_PAGE);
-            },
-            child: Container(
-              padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 4),
-              decoration: BoxDecoration(
-                color: AppColorsDark.aksen,
-                borderRadius: BorderRadius.circular(8),
-                boxShadow: const [
-                  BoxShadow(color: Color(0xFF575757), offset: Offset(-1, -1), blurRadius: 2),
-                  BoxShadow(color: Color(0xFF000000), offset: Offset(1, 1), blurRadius: 2),
-                ],
-              ),
-              child: Text(
-                'Edit',
-                style: GoogleFonts.dmSans(
-                  fontSize: 11,
-                  fontWeight: FontWeight.normal,
-                  color: AppColorsDark.teksOnPrimary,
+          right: 16,
+          child: Row(
+            children: [
+              GestureDetector(
+                onTap: () {
+                  Get.offAllNamed(Routes.EDIT_PROFILE_PAGE);
+                },
+                child: Container(
+                  padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 4),
+                  decoration: BoxDecoration(
+                    color: AppColorsDark.aksen,
+                    borderRadius: BorderRadius.circular(8),
+                    boxShadow: const [
+                      BoxShadow(color: Color(0xFF575757), offset: Offset(-1, -1), blurRadius: 2),
+                      BoxShadow(color: Color(0xFF000000), offset: Offset(1, 1), blurRadius: 2),
+                    ],
+                  ),
+                  child: Text(
+                    'Edit',
+                    style: GoogleFonts.dmSans(
+                      fontSize: 11,
+                      fontWeight: FontWeight.normal,
+                      color: AppColorsDark.teksOnPrimary,
+                    ),
+                  ),
                 ),
               ),
-            ),
+              const SizedBox(width: 10),
+              GestureDetector(
+                onTap: () {
+                  // TODO: Ganti dengan route page activity kamu
+                  Get.offAllNamed(Routes.ACTIVITY);
+                },
+                child: Container(
+                  padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 4),
+                  decoration: BoxDecoration(
+                    color: AppColorsDark.aksen,
+                    borderRadius: BorderRadius.circular(8),
+                    boxShadow: const [
+                      BoxShadow(color: Color(0xFF575757), offset: Offset(-1, -1), blurRadius: 2),
+                      BoxShadow(color: Color(0xFF000000), offset: Offset(1, 1), blurRadius: 2),
+                    ],
+                  ),
+                  child: Text(
+                    'Activity',
+                    style: GoogleFonts.dmSans(
+                      fontSize: 11,
+                      fontWeight: FontWeight.normal,
+                      color: AppColorsDark.teksOnPrimary,
+                    ),
+                  ),
+                ),
+              ),
+            ],
           ),
         ),
+
       ],
     );
   }
