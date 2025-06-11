@@ -6,17 +6,19 @@ class LoginHistory {
   final String email;
   final String provider;
   final DateTime loginTime;
-
+  final String device;
   LoginHistory({
     required this.email,
     required this.provider,
     required this.loginTime,
+    required this.device
   });
 
   Map<String, dynamic> toJson() => {
     'email': email,
     'provider': provider,
     'loginTime': loginTime.toIso8601String(),
+    'device': device,
   };
 
   factory LoginHistory.fromJson(Map<String, dynamic> json) {
@@ -24,6 +26,7 @@ class LoginHistory {
       email: json['email'],
       provider: json['provider'],
       loginTime: DateTime.parse(json['loginTime']),
+      device: json['device'] ?? 'unknown',
     );
   }
 }

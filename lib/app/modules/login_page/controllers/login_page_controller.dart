@@ -1,12 +1,13 @@
 import 'package:app_links/app_links.dart';
+import 'package:device_info_plus/device_info_plus.dart';
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:google_sign_in/google_sign_in.dart';
-
 import '../../../routes/app_pages.dart';
 import '../../activity/controllers/activity_controller.dart';
+import 'dart:io';
 
 class LoginPageController extends GetxController {
   var email = ''.obs;
@@ -36,6 +37,16 @@ class LoginPageController extends GetxController {
       }
     } catch (e) {
       print('Error getting app link: $e');
+    }
+  }
+
+  Future<String> getDeviceName() async {
+    final deviceInfo = DeviceInfoPlugin();
+    if (Platform.isAndroid) {
+      final androidInfo = await deviceInfo.androidInfo;
+      return '${androidInfo.manufacturer} ${androidInfo.model}';
+    } else {
+      return 'Unknown Device';
     }
   }
 
@@ -69,11 +80,13 @@ class LoginPageController extends GetxController {
         await prefs.setString('email', emailValue);
 
         final activityController = Get.put(ActivityController());
+        final deviceName = await getDeviceName();
         activityController.clearHistory(); // bersihkan tampilan lama
         activityController.addHistory(LoginHistory(
           email: emailValue,
           provider: 'manual',
           loginTime: DateTime.now(),
+          device: deviceName,
         ));
 
         Get.snackbar('Berhasil', 'Login berhasil');
@@ -110,11 +123,13 @@ class LoginPageController extends GetxController {
       await prefs.setString('img', img);
 
       final activityController = Get.put(ActivityController());
+      final deviceName = await getDeviceName();
       activityController.clearHistory(); // bersihkan tampilan lama
       activityController.addHistory(LoginHistory(
         email: emailValue,
         provider: 'google',
         loginTime: DateTime.now(),
+        device: deviceName,
       ));
 
       print("Login sukses: $username ($emailValue)");
