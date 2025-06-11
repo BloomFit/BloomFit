@@ -2,10 +2,18 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import '../controllers/activity_controller.dart';
 import '../../../routes/app_pages.dart';
-import 'package:intl/intl.dart'; // untuk format tanggal
+import 'package:intl/intl.dart';
 
-class ActivityView extends GetView<ActivityController> {
+class ActivityView extends StatefulWidget {
   const ActivityView({super.key});
+
+  @override
+  State<ActivityView> createState() => _ActivityViewState();
+}
+
+class _ActivityViewState extends State<ActivityView> {
+  final ActivityController controller = Get.find();
+  final RxSet<LoginHistory> selectedItems = <LoginHistory>{}.obs;
 
   String formatDate(DateTime dateTime) {
     return DateFormat('dd MMM yyyy, HH:mm').format(dateTime);
@@ -25,6 +33,18 @@ class ActivityView extends GetView<ActivityController> {
             Get.offNamed(Routes.PROFILE_PAGE);
           },
         ),
+        actions: [
+          Obx(() {
+            if (selectedItems.isEmpty) return const SizedBox();
+            return IconButton(
+              icon: const Icon(Icons.delete),
+              onPressed: () {
+                controller.removeSelectedHistory(selectedItems.toList());
+                selectedItems.clear();
+              },
+            );
+          })
+        ],
       ),
       body: Obx(() {
         final historyList = controller.historyList;
@@ -45,47 +65,47 @@ class ActivityView extends GetView<ActivityController> {
           itemBuilder: (context, index) {
             final item = historyList[index];
 
-            return Card(
-              elevation: 4,
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(12),
-              ),
-              child: ListTile(
-                contentPadding: const EdgeInsets.symmetric(
-                  vertical: 12,
-                  horizontal: 16,
-                ),
-                leading: const CircleAvatar(
-                  backgroundColor: Colors.blue,
-                  child: Icon(Icons.login, color: Colors.white),
-                ),
-                title: Text(
-                  item.email,
-                  style: const TextStyle(
-                    fontWeight: FontWeight.bold,
-                    fontSize: 16,
+            return Obx(() {
+              final isSelected = selectedItems.contains(item);
+              return GestureDetector(
+                onLongPress: () {
+                  selectedItems.add(item);
+                },
+                child: Card(
+                  elevation: 3,
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(12),
+                    side: isSelected
+                        ? BorderSide(color: theme.primaryColor, width: 2)
+                        : BorderSide.none,
+                  ),
+                  child: ListTile(
+                    leading: Checkbox(
+                      value: isSelected,
+                      onChanged: (val) {
+                        if (val == true) {
+                          selectedItems.add(item);
+                        } else {
+                          selectedItems.remove(item);
+                        }
+                      },
+                    ),
+                    title: Text(
+                      item.email,
+                      style: const TextStyle(fontWeight: FontWeight.bold),
+                    ),
+                    subtitle: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text('${item.provider} • ${formatDate(item.loginTime)}'),
+                        if (item.device.isNotEmpty)
+                          Text('Device: ${item.device}'),
+                      ],
+                    ),
                   ),
                 ),
-                subtitle: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    const SizedBox(height: 4),
-                    Text(
-                      '${item.provider} • ${formatDate(item.loginTime)}',
-                      style: TextStyle(color: theme.hintColor),
-                    ),
-                    if (item.device != null && item.device!.isNotEmpty)
-                      Padding(
-                        padding: const EdgeInsets.only(top: 4),
-                        child: Text(
-                          'Device: ${item.device!}',
-                          style: TextStyle(color: theme.hintColor),
-                        ),
-                      ),
-                  ],
-                ),
-              ),
-            );
+              );
+            });
           },
         );
       }),

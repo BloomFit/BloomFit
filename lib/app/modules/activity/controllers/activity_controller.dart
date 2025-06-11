@@ -7,11 +7,12 @@ class LoginHistory {
   final String provider;
   final DateTime loginTime;
   final String device;
+
   LoginHistory({
     required this.email,
     required this.provider,
     required this.loginTime,
-    required this.device
+    required this.device,
   });
 
   Map<String, dynamic> toJson() => {
@@ -26,9 +27,18 @@ class LoginHistory {
       email: json['email'],
       provider: json['provider'],
       loginTime: DateTime.parse(json['loginTime']),
-      device: json['device'] ?? 'unknown',
+      device: json['device'] ?? 'Unknown',
     );
   }
+
+  @override
+  bool operator ==(Object other) =>
+      other is LoginHistory &&
+          email == other.email &&
+          loginTime == other.loginTime;
+
+  @override
+  int get hashCode => email.hashCode ^ loginTime.hashCode;
 }
 
 class ActivityController extends GetxController {
@@ -59,10 +69,23 @@ class ActivityController extends GetxController {
     final currentList = _storage.read<List>(storageKey) ?? [];
     currentList.add(history.toJson());
     _storage.write(storageKey, currentList);
-    loadHistory(); // untuk memuat ulang dan filter berdasarkan email
+    loadHistory(); // update list sesuai email saat ini
+  }
+
+  void removeSelectedHistory(List<LoginHistory> selected) {
+    final currentList = _storage.read<List>(storageKey) ?? [];
+
+    final updatedList = currentList.where((item) {
+      final jsonItem = Map<String, dynamic>.from(item);
+      final itemHistory = LoginHistory.fromJson(jsonItem);
+      return !selected.contains(itemHistory);
+    }).toList();
+
+    _storage.write(storageKey, updatedList);
+    loadHistory();
   }
 
   void clearHistory() {
-    historyList.clear(); // hanya hapus tampilan, data GetStorage tetap
+    historyList.clear(); // hanya hapus tampilan list, tidak hapus dari GetStorage
   }
 }
