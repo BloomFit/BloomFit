@@ -1,5 +1,6 @@
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class LoginHistory {
   final String email;
@@ -38,11 +39,16 @@ class ActivityController extends GetxController {
     loadHistory();
   }
 
-  void loadHistory() {
+  void loadHistory() async {
     final rawData = _storage.read<List>(storageKey) ?? [];
+    final prefs = await SharedPreferences.getInstance();
+    final currentEmail = prefs.getString('email');
+
     final data = rawData
         .map((item) => LoginHistory.fromJson(Map<String, dynamic>.from(item)))
+        .where((history) => history.email == currentEmail)
         .toList();
+
     historyList.assignAll(data.reversed.toList());
   }
 
@@ -50,11 +56,10 @@ class ActivityController extends GetxController {
     final currentList = _storage.read<List>(storageKey) ?? [];
     currentList.add(history.toJson());
     _storage.write(storageKey, currentList);
-    loadHistory();
+    loadHistory(); // untuk memuat ulang dan filter berdasarkan email
   }
 
   void clearHistory() {
-    _storage.remove(storageKey);
-    historyList.clear();
+    historyList.clear(); // hanya hapus tampilan, data GetStorage tetap
   }
 }

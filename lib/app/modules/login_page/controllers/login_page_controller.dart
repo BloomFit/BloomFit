@@ -68,10 +68,8 @@ class LoginPageController extends GetxController {
         await prefs.setString('id', id);
         await prefs.setString('email', emailValue);
 
-        // Pastikan ActivityController sudah terdaftar sebelum dipakai
         final activityController = Get.put(ActivityController());
-
-        // Simpan riwayat login manual
+        activityController.clearHistory(); // bersihkan tampilan lama
         activityController.addHistory(LoginHistory(
           email: emailValue,
           provider: 'manual',
@@ -94,7 +92,7 @@ class LoginPageController extends GetxController {
   Future<void> signInWithGoogle() async {
     try {
       final GoogleSignIn googleSignIn = GoogleSignIn(scopes: ['email', 'profile']);
-      await googleSignIn.signOut(); // Optional: reset login sebelumnya
+      await googleSignIn.signOut(); // optional
       final GoogleSignInAccount? googleUser = await googleSignIn.signIn();
 
       if (googleUser == null) {
@@ -111,10 +109,8 @@ class LoginPageController extends GetxController {
       await prefs.setString('email', emailValue);
       await prefs.setString('img', img);
 
-      // Pastikan ActivityController sudah terdaftar sebelum dipakai
       final activityController = Get.put(ActivityController());
-
-      // Simpan riwayat login Google
+      activityController.clearHistory(); // bersihkan tampilan lama
       activityController.addHistory(LoginHistory(
         email: emailValue,
         provider: 'google',
