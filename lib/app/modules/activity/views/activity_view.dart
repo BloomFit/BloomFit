@@ -1,8 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:intl/intl.dart';
+import 'package:syncfusion_flutter_charts/charts.dart';
 import '../controllers/activity_controller.dart';
 import '../../../routes/app_pages.dart';
-import 'package:intl/intl.dart';
+
+// Model data chart
+class LoginChartData {
+  final String date;
+  final int count;
+
+  LoginChartData(this.date, this.count);
+}
 
 class ActivityView extends StatefulWidget {
   const ActivityView({super.key});
@@ -17,6 +26,20 @@ class _ActivityViewState extends State<ActivityView> {
 
   String formatDate(DateTime dateTime) {
     return DateFormat('dd MMM yyyy, HH:mm').format(dateTime);
+  }
+  List<LoginChartData> getChartData(List<LoginHistory> historyList) {
+    final Map<String, int> frequencyMap = {};
+
+    for (var item in historyList) {
+      final dateKey = DateFormat('dd/MM').format(item.loginTime);
+      frequencyMap[dateKey] = (frequencyMap[dateKey] ?? 0) + 1;
+    }
+
+    final sortedKeys = frequencyMap.keys.toList()..sort();
+
+    return sortedKeys
+        .map((key) => LoginChartData(key, frequencyMap[key]!))
+        .toList();
   }
 
   @override
@@ -43,7 +66,7 @@ class _ActivityViewState extends State<ActivityView> {
                 selectedItems.clear();
               },
             );
-          })
+          }),
         ],
       ),
       body: Obx(() {
@@ -58,55 +81,86 @@ class _ActivityViewState extends State<ActivityView> {
           );
         }
 
-        return ListView.separated(
-          padding: const EdgeInsets.all(16),
-          itemCount: historyList.length,
-          separatorBuilder: (_, __) => const SizedBox(height: 12),
-          itemBuilder: (context, index) {
-            final item = historyList[index];
+        final chartData = getChartData(historyList);
 
-            return Obx(() {
-              final isSelected = selectedItems.contains(item);
-              return GestureDetector(
-                onLongPress: () {
-                  selectedItems.add(item);
-                },
-                child: Card(
-                  elevation: 3,
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(12),
-                    side: isSelected
-                        ? BorderSide(color: theme.primaryColor, width: 2)
-                        : BorderSide.none,
+        return ListView(
+          padding: const EdgeInsets.all(16),
+          children: [
+            const Text(
+              'Grafik Login Harian',
+              style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
+            ),
+            const SizedBox(height: 12),
+            SizedBox(
+              height: 250,
+              child: SfCartesianChart(
+                primaryXAxis: CategoryAxis(),
+                title: ChartTitle(text: 'Login per Hari'),
+                tooltipBehavior: TooltipBehavior(enable: true),
+                series: <CartesianSeries<LoginChartData, String>>[
+                  ColumnSeries<LoginChartData, String>(
+                    dataSource: chartData,
+                    xValueMapper: (LoginChartData data, _) => data.date,
+                    yValueMapper: (LoginChartData data, _) => data.count,
+                    name: 'Login',
+                    color: theme.primaryColor,
+                    dataLabelSettings:
+                    const DataLabelSettings(isVisible: true),
                   ),
-                  child: ListTile(
-                    leading: Checkbox(
-                      value: isSelected,
-                      onChanged: (val) {
-                        if (val == true) {
-                          selectedItems.add(item);
-                        } else {
-                          selectedItems.remove(item);
-                        }
-                      },
+                ],
+              ),
+            ),
+            const SizedBox(height: 24),
+            const Text(
+              'Detail Riwayat Login',
+              style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
+            ),
+            const SizedBox(height: 12),
+            ...historyList.map((item) {
+              return Obx(() {
+                final isSelected = selectedItems.contains(item);
+                return GestureDetector(
+                  onLongPress: () {
+                    selectedItems.add(item);
+                  },
+                  child: Card(
+                    elevation: 3,
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(12),
+                      side: isSelected
+                          ? BorderSide(color: theme.primaryColor, width: 2)
+                          : BorderSide.none,
                     ),
-                    title: Text(
-                      item.email,
-                      style: const TextStyle(fontWeight: FontWeight.bold),
-                    ),
-                    subtitle: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text('${item.provider} • ${formatDate(item.loginTime)}'),
-                        if (item.device.isNotEmpty)
-                          Text('Device: ${item.device}'),
-                      ],
+                    child: ListTile(
+                      leading: Checkbox(
+                        value: isSelected,
+                        onChanged: (val) {
+                          if (val == true) {
+                            selectedItems.add(item);
+                          } else {
+                            selectedItems.remove(item);
+                          }
+                        },
+                      ),
+                      title: Text(
+                        item.email,
+                        style: const TextStyle(fontWeight: FontWeight.bold),
+                      ),
+                      subtitle: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                              '${item.provider} • ${formatDate(item.loginTime)}'),
+                          if (item.device.isNotEmpty)
+                            Text('Device: ${item.device}'),
+                        ],
+                      ),
                     ),
                   ),
-                ),
-              );
-            });
-          },
+                );
+              });
+            }).toList(),
+          ],
         );
       }),
     );

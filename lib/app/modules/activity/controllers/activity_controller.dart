@@ -69,7 +69,7 @@ class ActivityController extends GetxController {
     final currentList = _storage.read<List>(storageKey) ?? [];
     currentList.add(history.toJson());
     _storage.write(storageKey, currentList);
-    loadHistory(); // update list sesuai email saat ini
+    loadHistory(); 
   }
 
   void removeSelectedHistory(List<LoginHistory> selected) {
