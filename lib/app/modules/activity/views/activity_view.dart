@@ -2,10 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
+import 'package:flutter_animate/flutter_animate.dart';
 import '../controllers/activity_controller.dart';
 import '../../../routes/app_pages.dart';
 
-// Model data chart
 class LoginChartData {
   final String date;
   final int count;
@@ -27,6 +27,7 @@ class _ActivityViewState extends State<ActivityView> {
   String formatDate(DateTime dateTime) {
     return DateFormat('dd MMM yyyy, HH:mm').format(dateTime);
   }
+
   List<LoginChartData> getChartData(List<LoginHistory> historyList) {
     final Map<String, int> frequencyMap = {};
 
@@ -45,9 +46,13 @@ class _ActivityViewState extends State<ActivityView> {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
+    final textTheme = theme.textTheme;
 
     return Scaffold(
+      backgroundColor: const Color(0xFFF9F9F9),
       appBar: AppBar(
+        backgroundColor: Colors.pinkAccent,
+        foregroundColor: Colors.white,
         title: const Text('Riwayat Login'),
         centerTitle: true,
         leading: IconButton(
@@ -84,82 +89,135 @@ class _ActivityViewState extends State<ActivityView> {
         final chartData = getChartData(historyList);
 
         return ListView(
-          padding: const EdgeInsets.all(16),
+          padding: const EdgeInsets.all(20),
           children: [
-            const Text(
+            // Section Title
+            Text(
               'Grafik Login Harian',
-              style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
-            ),
+              style: textTheme.titleMedium?.copyWith(
+                fontWeight: FontWeight.bold,
+                fontSize: 18,
+              ),
+            ).animate().fade(duration: 500.ms).slideY(begin: -0.2),
+
             const SizedBox(height: 12),
-            SizedBox(
-              height: 250,
-              child: SfCartesianChart(
-                primaryXAxis: CategoryAxis(),
-                title: ChartTitle(text: 'Login per Hari'),
-                tooltipBehavior: TooltipBehavior(enable: true),
-                series: <CartesianSeries<LoginChartData, String>>[
-                  ColumnSeries<LoginChartData, String>(
-                    dataSource: chartData,
-                    xValueMapper: (LoginChartData data, _) => data.date,
-                    yValueMapper: (LoginChartData data, _) => data.count,
-                    name: 'Login',
-                    color: theme.primaryColor,
-                    dataLabelSettings:
-                    const DataLabelSettings(isVisible: true),
+
+            // Chart Container
+            Container(
+              decoration: BoxDecoration(
+                color: Colors.white,
+                borderRadius: BorderRadius.circular(12),
+                boxShadow: const [
+                  BoxShadow(
+                    color: Colors.black12,
+                    blurRadius: 6,
+                    offset: Offset(0, 2),
                   ),
                 ],
               ),
-            ),
+              child: Padding(
+                padding: const EdgeInsets.all(12),
+                child: SizedBox(
+                  height: 250,
+                  child: SfCartesianChart(
+                    primaryXAxis: CategoryAxis(),
+                    title: ChartTitle(
+                      text: 'Login per Hari',
+                      textStyle: textTheme.bodyLarge?.copyWith(
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                    tooltipBehavior: TooltipBehavior(enable: true),
+                    series: <CartesianSeries<LoginChartData, String>>[
+                      ColumnSeries<LoginChartData, String>(
+                        dataSource: chartData,
+                        xValueMapper: (LoginChartData data, _) => data.date,
+                        yValueMapper: (LoginChartData data, _) => data.count,
+                        name: 'Login',
+                        color: Colors.pinkAccent,
+                        dataLabelSettings: const DataLabelSettings(isVisible: true),
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+            ).animate().fade(duration: 600.ms).scale(begin: const Offset(0.95, 0.95)),
+
             const SizedBox(height: 24),
-            const Text(
+
+            // Section Title
+            Text(
               'Detail Riwayat Login',
-              style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
-            ),
+              style: textTheme.titleMedium?.copyWith(
+                fontWeight: FontWeight.bold,
+                fontSize: 18,
+              ),
+            ).animate().fade(duration: 500.ms).slideY(begin: -0.2),
+
             const SizedBox(height: 12),
-            ...historyList.map((item) {
-              return Obx(() {
+
+            // Animated List of History Items
+            Column(
+              children: controller.historyList.map((item) {
                 final isSelected = selectedItems.contains(item);
                 return GestureDetector(
-                  onLongPress: () {
-                    selectedItems.add(item);
-                  },
+                  onLongPress: () => selectedItems.add(item),
                   child: Card(
-                    elevation: 3,
+                    color: isSelected
+                        ? theme.primaryColor.withOpacity(0.05)
+                        : Colors.white,
+                    elevation: 4,
+                    shadowColor: Colors.black12,
+                    margin: const EdgeInsets.symmetric(vertical: 8),
                     shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(12),
+                      borderRadius: BorderRadius.circular(14),
                       side: isSelected
                           ? BorderSide(color: theme.primaryColor, width: 2)
                           : BorderSide.none,
                     ),
-                    child: ListTile(
-                      leading: Checkbox(
-                        value: isSelected,
-                        onChanged: (val) {
-                          if (val == true) {
-                            selectedItems.add(item);
-                          } else {
-                            selectedItems.remove(item);
-                          }
-                        },
-                      ),
-                      title: Text(
-                        item.email,
-                        style: const TextStyle(fontWeight: FontWeight.bold),
-                      ),
-                      subtitle: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(
-                              '${item.provider} • ${formatDate(item.loginTime)}'),
-                          if (item.device.isNotEmpty)
-                            Text('Device: ${item.device}'),
-                        ],
+                    child: Padding(
+                      padding: const EdgeInsets.symmetric(
+                          vertical: 8, horizontal: 12),
+                      child: ListTile(
+                        contentPadding: EdgeInsets.zero,
+                        leading: Checkbox(
+                          value: isSelected,
+                          onChanged: (val) {
+                            if (val == true) {
+                              selectedItems.add(item);
+                            } else {
+                              selectedItems.remove(item);
+                            }
+                          },
+                        ),
+                        title: Text(
+                          item.email,
+                          style: textTheme.bodyLarge?.copyWith(
+                            fontWeight: FontWeight.w600,
+                          ),
+                        ),
+                        subtitle: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              '${item.provider} • ${formatDate(item.loginTime)}',
+                              style: textTheme.bodySmall,
+                            ),
+                            if (item.device.isNotEmpty)
+                              Text(
+                                'Device: ${item.device}',
+                                style: textTheme.bodySmall?.copyWith(
+                                  fontStyle: FontStyle.italic,
+                                ),
+                              ),
+                          ],
+                        ),
                       ),
                     ),
                   ),
-                );
-              });
-            }).toList(),
+                ).animate().fade(duration: 300.ms).slideX(begin: 0.2);
+              }).toList(),
+            ),
           ],
         );
       }),
