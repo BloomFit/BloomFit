@@ -30,7 +30,7 @@ part 'app_routes.dart';
 class AppPages {
   AppPages._();
 
-  static const INITIAL = Routes.LOGIN_PAGE;
+  static const INITIAL = Routes.SPALSH;
 
   static final routes = [
     GetPage(
@@ -70,7 +70,7 @@ class AppPages {
     ),
     GetPage(
       name: _Paths.ARTICLES,
-      page: () => const ArticlesView(),
+      page: () =>  ArticlesView(),
       binding: ArticlesBinding(),
     ),
     GetPage(

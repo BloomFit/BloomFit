@@ -1,9 +1,12 @@
 import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:mobile_app/app/routes/app_pages.dart';
-import '../controllers/edit_profile_page_controller.dart';
 import 'package:image_picker/image_picker.dart';
+import '../controllers/edit_profile_page_controller.dart';
+import 'package:mobile_app/app/routes/app_pages.dart';
+import 'package:google_fonts/google_fonts.dart';
+
+
 class EditProfilePageView extends GetView<EditProfilePageController> {
   EditProfilePageView({super.key});
 
@@ -25,6 +28,8 @@ class EditProfilePageView extends GetView<EditProfilePageController> {
     '27-40 minggu',
   ];
 
+  final Color primaryColor = const Color(0xFFEC407A);
+
   @override
   Widget build(BuildContext context) {
     usernameController.text = controller.username.value;
@@ -34,24 +39,47 @@ class EditProfilePageView extends GetView<EditProfilePageController> {
     selectedUsia.value = controller.usiaKehamilan.value;
 
     return Scaffold(
+      backgroundColor: Colors.grey[100],
       appBar: AppBar(
         title: const Text('Edit Profil'),
         centerTitle: true,
+        backgroundColor: primaryColor,
+        leading: IconButton(
+          icon: const Icon(Icons.arrow_back),
+          onPressed: () {
+            Get.offAllNamed(Routes.PROFILE_PAGE);
+          },
+        ),
       ),
       body: SingleChildScrollView(
-        padding: const EdgeInsets.all(16.0),
-        child: Column(
-          children: [
-            _buildProfileImage(),
-            const SizedBox(height: 16),
-            _buildTextField('Username', usernameController),
-            const SizedBox(height: 16),
-            _buildDropdown('Trimester', selectedTrimester, trimesterOptions),
-            const SizedBox(height: 16),
-            _buildDropdown('Usia Kehamilan', selectedUsia, usiaKehamilanOptions),
-            const SizedBox(height: 32),
-            _saveButton(),
-          ],
+        padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 24),
+        child: Container(
+          padding: const EdgeInsets.all(20),
+          decoration: BoxDecoration(
+            color: Colors.white,
+            borderRadius: BorderRadius.circular(16),
+            boxShadow: const [
+              BoxShadow(
+                color: Colors.black,
+                blurRadius: 8,
+                offset: Offset(0, 4),
+              ),
+            ],
+          ),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: [
+              Center(child: _buildProfileImage()),
+              const SizedBox(height: 24),
+              _buildTextField('Username', usernameController),
+              const SizedBox(height: 20),
+              _buildDropdown('Trimester', selectedTrimester, trimesterOptions),
+              const SizedBox(height: 20),
+              _buildDropdown('Usia Kehamilan', selectedUsia, usiaKehamilanOptions),
+              const SizedBox(height: 30),
+              _saveButton(),
+            ],
+          ),
         ),
       ),
     );
@@ -59,28 +87,30 @@ class EditProfilePageView extends GetView<EditProfilePageController> {
 
   Widget _buildProfileImage() {
     return GestureDetector(
-      onTap: () => _pickImage(),
+      onTap: _pickImage,
       child: Obx(() {
         final imagePath = controller.photoUrl.value;
-        return CircleAvatar(
-          radius: 50,
-          backgroundImage: imagePath.isNotEmpty
-              ? (imagePath.startsWith('http')
-              ? NetworkImage(imagePath)
-              : FileImage(File(imagePath)) as ImageProvider)
-              : const AssetImage('assets/default_profile.png'),
-          child: Align(
-            alignment: Alignment.bottomRight,
-            child: CircleAvatar(
-              radius: 15,
-              backgroundColor: Colors.white,
-              child: Icon(
-                Icons.camera_alt,
-                size: 15,
-                color: Colors.grey[800],
-              ),
+        return Stack(
+          alignment: Alignment.bottomRight,
+          children: [
+            CircleAvatar(
+              radius: 55,
+              backgroundColor: Colors.grey[200],
+              backgroundImage: imagePath.isNotEmpty
+                  ? (imagePath.startsWith('http')
+                  ? NetworkImage(imagePath)
+                  : FileImage(File(imagePath)) as ImageProvider)
+                  : null,
+              child: imagePath.isEmpty
+                  ? const Icon(Icons.person, size: 50, color: Colors.grey)
+                  : null,
             ),
-          ),
+            CircleAvatar(
+              radius: 18,
+              backgroundColor: Colors.white,
+              child: const Icon(Icons.camera_alt, size: 18, color: Colors.black54),
+            ),
+          ],
         );
       }),
     );
@@ -91,18 +121,23 @@ class EditProfilePageView extends GetView<EditProfilePageController> {
       controller: controller,
       decoration: InputDecoration(
         labelText: label,
-        border: const OutlineInputBorder(),
+        contentPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 14),
+        border: OutlineInputBorder(borderRadius: BorderRadius.circular(12)),
+        filled: true,
+        fillColor: Colors.grey[100],
       ),
     );
   }
 
-  Widget _buildDropdown(
-      String label, RxString selectedValue, List<String> options) {
+  Widget _buildDropdown(String label, RxString selectedValue, List<String> options) {
     return Obx(() => DropdownButtonFormField<String>(
       value: selectedValue.value.isNotEmpty ? selectedValue.value : null,
       decoration: InputDecoration(
         labelText: label,
-        border: const OutlineInputBorder(),
+        contentPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 14),
+        border: OutlineInputBorder(borderRadius: BorderRadius.circular(12)),
+        filled: true,
+        fillColor: Colors.grey[100],
       ),
       items: options.map((option) {
         return DropdownMenuItem<String>(
@@ -121,9 +156,6 @@ class EditProfilePageView extends GetView<EditProfilePageController> {
       onPressed: () async {
         String newUsername = usernameController.text;
 
-        print('Username sebelumnya: $oldUsername');
-        print('Username baru: $newUsername');
-
         await controller.saveUserData(
           newUsername,
           controller.photoUrl.value,
@@ -141,7 +173,20 @@ class EditProfilePageView extends GetView<EditProfilePageController> {
 
         Get.offAllNamed(Routes.PROFILE_PAGE);
       },
-      child: const Text('Simpan Perubahan'),
+      style: ElevatedButton.styleFrom(
+        backgroundColor: primaryColor,
+        padding: const EdgeInsets.symmetric(vertical: 16),
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+        textStyle: const TextStyle(fontSize: 16, fontWeight: FontWeight.w600),
+      ),
+      child: Text(
+        'Simpan Perubahan',
+        style: GoogleFonts.dmSans(
+          fontSize: 16,
+          fontWeight: FontWeight.bold,
+          color: Colors.white,
+        ),
+      ),
     );
   }
 

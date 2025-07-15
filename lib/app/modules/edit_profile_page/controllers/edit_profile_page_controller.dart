@@ -52,20 +52,20 @@ class EditProfilePageController extends GetxController {
     try {
       final prefs = await SharedPreferences.getInstance();
       final token = prefs.getString('token') ?? '';
-      final id = prefs.getString('id');
+      final userId = prefs.getString('id');
 
-      if (id == null) {
+      if (userId == null) {
         Get.snackbar('Error', 'ID pengguna tidak ditemukan. Silakan login ulang.',
             backgroundColor: Colors.red, colorText: Colors.white);
         return;
       }
 
-      final url = Uri.parse('https://capstone6-sand.vercel.app/api/users/$id/update');
-      var request = http.MultipartRequest('PATCH', url);
-
+      final url = Uri.parse('https://capstone6-sand.vercel.app/api/users/$userId/update');
+      final request = http.MultipartRequest('PATCH', url);
       request.headers['Authorization'] = 'Bearer $token';
-      request.fields['username'] = newUsername;
 
+      // Isi field
+      request.fields['username'] = newUsername;
       if (currentPassword != null && newPassword != null) {
         request.fields['current_password'] = currentPassword;
         request.fields['new_password'] = newPassword;
@@ -79,30 +79,30 @@ class EditProfilePageController extends GetxController {
         ));
       }
 
-      final response = await request.send();
+      final streamedResponse = await request.send();
+      final responseBody = await streamedResponse.stream.bytesToString();
 
-      if (response.statusCode == 200) {
-        // ✅ Update SharedPreferences dengan key yg sesuai
-        final responBody = await response.stream.bytesToString();
-        final decoded = jsonDecode(responBody);
-        final imgUrl = decoded['img'];
-        await prefs.setString('username', newUsername);
-        await prefs.setString('img', imgUrl); // ✅ simpan URL dari server, bukan path lokal
+      if (streamedResponse.statusCode == 200) {
+        final data = jsonDecode(responseBody);
+        final user = data['user'];
+
+        // Simpan data terbaru ke SharedPreferences
+        await prefs.setString('username', user['username']);
+        await prefs.setString('img', user['img'] ?? '');
         if (newTrimester != null) await prefs.setString('trimester', newTrimester);
         if (newUsiaKehamilan != null) await prefs.setString('usiaKehamilan', newUsiaKehamilan);
 
-        // ✅ Update nilai lokal
-        username.value = newUsername;
-        photoUrl.value = imagePath;
+        // Perbarui nilai lokal
+        username.value = user['username'];
+        photoUrl.value = user['img'] ?? '';
         if (newTrimester != null) trimester.value = newTrimester;
         if (newUsiaKehamilan != null) usiaKehamilan.value = newUsiaKehamilan;
-
 
         Get.snackbar('Sukses', 'Profil berhasil diperbarui',
             backgroundColor: Colors.green, colorText: Colors.white);
       } else {
-        final body = await response.stream.bytesToString();
-        Get.snackbar('Gagal', 'Update gagal: $body',
+        final error = jsonDecode(responseBody);
+        Get.snackbar('Gagal', error['message'] ?? 'Terjadi kesalahan',
             backgroundColor: Colors.red, colorText: Colors.white);
       }
     } catch (e) {

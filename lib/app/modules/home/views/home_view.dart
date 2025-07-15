@@ -52,10 +52,8 @@ class HomeView extends GetView<HomeController> {
               },
               child: CircleAvatar(
                 radius: 30,
-                backgroundImage: imgUrl.isNotEmpty
-                    ? NetworkImage(imgUrl)
-                    : const AssetImage('assets/images/gweh.png') as ImageProvider,
-              ),
+                backgroundImage: imgUrl.isNotEmpty ? NetworkImage(imgUrl) : null,
+              )
             );
           }),
         ],

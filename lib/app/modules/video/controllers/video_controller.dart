@@ -41,7 +41,6 @@ class VideoController extends GetxController {
         final category = categories[i];
         String searchQuery = '';
 
-        // Menyesuaikan query untuk senam ibu hamil Indonesia
         switch (category) {
           case 'Trimester 1':
             searchQuery = 'senam ibu hamil trimester 1 indonesia';

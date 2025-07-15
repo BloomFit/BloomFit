@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:video_player/video_player.dart';
 import 'package:mobile_app/app/routes/app_pages.dart';
 import '../controllers/selection_page_controller.dart';
 
@@ -8,14 +9,13 @@ class SelectionPageView extends GetView<SelectionPageController> {
 
   @override
   Widget build(BuildContext context) {
-
     final Color primaryColor = Colors.teal.shade400;
     final Color backgroundColor = Colors.grey.shade100;
     final Color cardColor = Colors.white;
     final Color accentColor = Colors.pink.shade300;
 
     return Scaffold(
-      backgroundColor: backgroundColor, // Ganti warna background
+      backgroundColor: backgroundColor,
       appBar: AppBar(
         title: const Text(
           "Pilih Latihan Senam",
@@ -25,8 +25,8 @@ class SelectionPageView extends GetView<SelectionPageController> {
           ),
         ),
         centerTitle: true,
-        backgroundColor: Colors.transparent, // Transparan agar menyatu
-        elevation: 0, // Hilangkan bayangan untuk tampilan modern
+        backgroundColor: Colors.transparent,
+        elevation: 0,
       ),
       body: SafeArea(
         child: Padding(
@@ -34,7 +34,7 @@ class SelectionPageView extends GetView<SelectionPageController> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
-              // --- Kartu untuk Pilihan ---
+              // Kartu untuk Pilihan
               Card(
                 elevation: 4,
                 shadowColor: primaryColor.withOpacity(0.2),
@@ -46,11 +46,11 @@ class SelectionPageView extends GetView<SelectionPageController> {
                   padding: const EdgeInsets.all(20.0),
                   child: Column(
                     children: [
-                      // --- Dropdown Trimester ---
+                      // Dropdown Trimester
                       Obx(() => DropdownButtonFormField<String>(
                         decoration: _buildInputDecoration(
                           label: "Trimester Kehamilan",
-                          icon: Icons.filter_alt_rounded, // Ikon untuk trimester
+                          icon: Icons.filter_alt_rounded,
                           primaryColor: accentColor,
                         ),
                         value: controller.selectedTrimester.value,
@@ -63,51 +63,77 @@ class SelectionPageView extends GetView<SelectionPageController> {
                         onChanged: controller.selectTrimester,
                       )),
                       const SizedBox(height: 20),
-                      // --- Dropdown Pose ---
+                      // Dropdown Pose
                       Obx(() {
                         final selected = controller.selectedTrimester.value;
-                        // Tampilkan dengan animasi saat muncul
                         return AnimatedSwitcher(
-                            duration: const Duration(milliseconds: 300),
-                            transitionBuilder: (child, animation) {
-                              return FadeTransition(
-                                opacity: animation,
-                                child: SlideTransition(
-                                  position: Tween<Offset>(
-                                    begin: const Offset(0, -0.2),
-                                    end: Offset.zero,
-                                  ).animate(animation),
-                                  child: child,
-                                ),
-                              );
-                            },
-                            child: (selected == null)
-                                ? const SizedBox.shrink() // Hilang jika belum ada trimester
-                                : DropdownButtonFormField<String>(
-                              key: ValueKey(selected), // Key untuk reset state
-                              decoration: _buildInputDecoration(
-                                label: "Jenis Pose Senam",
-                                icon: Icons.self_improvement, // Ikon untuk pose
-                                primaryColor: accentColor,
+                          duration: const Duration(milliseconds: 300),
+                          transitionBuilder: (child, animation) {
+                            return FadeTransition(
+                              opacity: animation,
+                              child: SlideTransition(
+                                position: Tween<Offset>(
+                                  begin: const Offset(0, -0.2),
+                                  end: Offset.zero,
+                                ).animate(animation),
+                                child: child,
                               ),
-                              value: controller.selectedPose.value,
-                              items: controller
-                                  .trimesterPoses[selected]!
-                                  .map((pose) => DropdownMenuItem(
-                                value: pose,
-                                child: Text(pose.replaceAll("_", " ")),
-                              ))
-                                  .toList(),
-                              onChanged: controller.selectPose,
-                            )
+                            );
+                          },
+                          child: (selected == null)
+                              ? const SizedBox.shrink()
+                              : DropdownButtonFormField<String>(
+                            key: ValueKey(selected),
+                            decoration: _buildInputDecoration(
+                              label: "Jenis Pose Senam",
+                              icon: Icons.self_improvement,
+                              primaryColor: accentColor,
+                            ),
+                            value: controller.selectedPose.value,
+                            items: controller
+                                .trimesterPoses[selected]!
+                                .map((pose) => DropdownMenuItem(
+                              value: pose,
+                              child: Text(
+                                  pose.replaceAll("_", " ")),
+                            ))
+                                .toList(),
+                            onChanged: controller.selectPose,
+                          ),
                         );
                       }),
                     ],
                   ),
                 ),
               ),
-              const Spacer(), // Mendorong tombol ke bawah
-              // --- Tombol Aksi (Call to Action) ---
+
+              // Video Tutorial
+              Obx(() {
+                final pose = controller.selectedPose.value;
+                final videoPath = controller.poseVideos[pose];
+                if (videoPath == null) return const SizedBox.shrink();
+                return Padding(
+                  padding: const EdgeInsets.symmetric(vertical: 20.0),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        "Contoh Gerakan:",
+                        style: TextStyle(
+                          fontWeight: FontWeight.bold,
+                          color: Colors.grey.shade800,
+                          fontSize: 16,
+                        ),
+                      ),
+                      const SizedBox(height: 10),
+                      _PoseVideoPlayer(videoPath: videoPath),
+                    ],
+                  ),
+                );
+              }),
+
+              const Spacer(),
+              // Tombol Mulai Deteksi
               Obx(() => ElevatedButton.icon(
                 icon: const Icon(Icons.play_circle_fill_rounded, size: 28),
                 onPressed: (controller.selectedTrimester.value != null &&
@@ -118,7 +144,7 @@ class SelectionPageView extends GetView<SelectionPageController> {
                     arguments: controller.selectedPose.value,
                   );
                 }
-                    : null, // Otomatis nonaktif jika pilihan belum lengkap
+                    : null,
                 label: const Text("Mulai Deteksi"),
                 style: _buildButtonStyle(accentColor, accentColor),
               )),
@@ -137,45 +163,97 @@ class SelectionPageView extends GetView<SelectionPageController> {
     return InputDecoration(
       labelText: label,
       labelStyle: TextStyle(color: primaryColor),
-      prefixIcon: Icon(
-        icon,
-        color: primaryColor,
-      ),
+      prefixIcon: Icon(icon, color: primaryColor),
       filled: true,
       fillColor: primaryColor.withOpacity(0.05),
       contentPadding: const EdgeInsets.symmetric(vertical: 16, horizontal: 12),
       border: OutlineInputBorder(
         borderRadius: BorderRadius.circular(12),
-        borderSide: BorderSide.none, // Tidak ada border di state normal
+        borderSide: BorderSide.none,
       ),
       focusedBorder: OutlineInputBorder(
         borderRadius: BorderRadius.circular(12),
-        borderSide: BorderSide(
-          color: primaryColor, // Border saat di-tap/fokus
-          width: 2,
-        ),
+        borderSide: BorderSide(color: primaryColor, width: 2),
       ),
     );
   }
 
   ButtonStyle _buildButtonStyle(Color primaryColor, Color accentColor) {
     return ElevatedButton.styleFrom(
-      foregroundColor: Colors.white, // Warna ikon dan teks
-      backgroundColor: primaryColor, // Warna background tombol
-      minimumSize: const Size.fromHeight(56), // Tinggi tombol
+      foregroundColor: Colors.white,
+      backgroundColor: primaryColor,
+      minimumSize: const Size.fromHeight(56),
       padding: const EdgeInsets.symmetric(vertical: 16),
       shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(30), // Membuat tombol lebih bulat
+        borderRadius: BorderRadius.circular(30),
       ),
-      textStyle: const TextStyle(
-        fontSize: 18,
-        fontWeight: FontWeight.bold,
-      ),
+      textStyle: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
       elevation: 5,
       shadowColor: primaryColor.withOpacity(0.4),
-      // Style untuk state disabled (saat pilihan belum lengkap)
       disabledBackgroundColor: Colors.grey.shade300,
       disabledForegroundColor: Colors.grey.shade500,
     );
+  }
+}
+
+// Widget untuk video tutorial langsung dalam file yang sama
+class _PoseVideoPlayer extends StatefulWidget {
+  final String videoPath;
+  const _PoseVideoPlayer({required this.videoPath});
+
+  @override
+  State<_PoseVideoPlayer> createState() => _PoseVideoPlayerState();
+}
+
+class _PoseVideoPlayerState extends State<_PoseVideoPlayer> {
+  late VideoPlayerController _controller;
+
+  @override
+  void initState() {
+    super.initState();
+    _controller = VideoPlayerController.asset(widget.videoPath)
+      ..initialize().then((_) {
+        setState(() {});
+        _controller.play();
+        _controller.setLooping(true);
+      });
+  }
+
+  @override
+  void didUpdateWidget(covariant _PoseVideoPlayer oldWidget) {
+    super.didUpdateWidget(oldWidget);
+    if (oldWidget.videoPath != widget.videoPath) {
+      _controller.pause();
+      _controller.dispose();
+      _controller = VideoPlayerController.asset(widget.videoPath)
+        ..initialize().then((_) {
+          setState(() {});
+          _controller.play();
+          _controller.setLooping(true);
+        });
+    }
+  }
+
+  @override
+  void dispose() {
+    _controller.dispose();
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return _controller.value.isInitialized
+        ? ClipRRect(
+      borderRadius: BorderRadius.circular(12),
+      child: SizedBox(
+        width: double.infinity,
+        height: 450, // tinggi video dibatasi
+        child: AspectRatio(
+          aspectRatio: _controller.value.aspectRatio,
+          child: VideoPlayer(_controller),
+        ),
+      ),
+    )
+        : const Center(child: CircularProgressIndicator());
   }
 }

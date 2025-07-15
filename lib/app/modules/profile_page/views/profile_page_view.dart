@@ -179,7 +179,6 @@ class ProfilePageView extends GetView<ProfilePageController> {
               const SizedBox(width: 10),
               GestureDetector(
                 onTap: () {
-                  // TODO: Ganti dengan route page activity kamu
                   Get.offAllNamed(Routes.ACTIVITY);
                 },
                 child: Container(
@@ -202,6 +201,7 @@ class ProfilePageView extends GetView<ProfilePageController> {
                   ),
                 ),
               ),
+              const SizedBox(width: 10)
             ],
           ),
         ),

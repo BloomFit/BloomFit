@@ -10,7 +10,6 @@ class ArticlesController extends GetxController {
   final RxBool isLoading = false.obs;
   final RxString searchQuery = ''.obs;
 
-  // TextEditingController untuk search field
   final TextEditingController searchController = TextEditingController();
 
   @override
@@ -314,7 +313,6 @@ class ArticlesController extends GetxController {
   }
 }
 
-// models/article.dart
 class Article {
   final int id;
   final String title;
