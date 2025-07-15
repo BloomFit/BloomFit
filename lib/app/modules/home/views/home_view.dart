@@ -129,7 +129,7 @@ class HomeView extends GetView<HomeController> {
       childAspectRatio: 1.5,
       children: [
         _buildMenuItem(Icons.fitness_center, 'Detection', accentColor, () {
-          // Get.toNamed(Routes.DETECTION_PAGE);
+          Get.toNamed(Routes.SELECTION_PAGE);
         }),
         _buildMenuItem(Icons.article, 'Articles', accentColor, () {
           Get.toNamed(Routes.ARTICLES);

@@ -16,6 +16,8 @@ import '../modules/profile_page/bindings/profile_page_binding.dart';
 import '../modules/profile_page/views/profile_page_view.dart';
 import '../modules/register_page/bindings/register_page_binding.dart';
 import '../modules/register_page/views/register_page_view.dart';
+import '../modules/selection_page/bindings/selection_page_binding.dart';
+import '../modules/selection_page/views/selection_page_view.dart';
 import '../modules/spalsh/bindings/spalsh_binding.dart';
 import '../modules/spalsh/views/spalsh_view.dart';
 import '../modules/video/bindings/video_binding.dart';
@@ -28,7 +30,7 @@ part 'app_routes.dart';
 class AppPages {
   AppPages._();
 
-  static const INITIAL = Routes.SPALSH;
+  static const INITIAL = Routes.LOGIN_PAGE;
 
   static final routes = [
     GetPage(
@@ -85,6 +87,11 @@ class AppPages {
       name: _Paths.ACTIVITY,
       page: () => const ActivityView(),
       binding: ActivityBinding(),
+    ),
+    GetPage(
+      name: _Paths.SELECTION_PAGE,
+      page: () => const SelectionPageView(),
+      binding: SelectionPageBinding(),
     ),
   ];
 }
