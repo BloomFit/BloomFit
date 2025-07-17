@@ -137,10 +137,8 @@ class ProfilePageView extends GetView<ProfilePageController> {
                 radius: 50,
                 backgroundColor: const Color(0xFFE91E63),
                 child: CircleAvatar(
-                  radius: 50,
-                  backgroundImage: imgUrl.isNotEmpty
-                      ? NetworkImage(imgUrl)
-                      : const AssetImage('assets/images/gweh.png') as ImageProvider,
+                  radius: 30,
+                  backgroundImage: imgUrl.isNotEmpty ? NetworkImage(imgUrl) : null,
                 ),
               );
             }),

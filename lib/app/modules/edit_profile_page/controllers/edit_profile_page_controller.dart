@@ -60,7 +60,7 @@ class EditProfilePageController extends GetxController {
         return;
       }
 
-      final url = Uri.parse('https://capstone6-sand.vercel.app/api/users/$userId/update');
+      final url = Uri.parse('https://backend-bloomfit.vercel.app/api/users/$userId/update');
       final request = http.MultipartRequest('PATCH', url);
       request.headers['Authorization'] = 'Bearer $token';
 

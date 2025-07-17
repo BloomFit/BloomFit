@@ -1,26 +1,44 @@
 {
   "project_info": {
-    "project_number": "1042582903874",
-    "project_id": "capstone-dd94c",
-    "storage_bucket": "capstone-dd94c.firebasestorage.app"
+    "project_number": "815769988696",
+    "project_id": "bloomfittt",
+    "storage_bucket": "bloomfittt.firebasestorage.app"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:1042582903874:android:cc89dd95094d9fb4f2e1db",
+        "mobilesdk_app_id": "1:815769988696:android:c896bfbaf8f64d125da42d",
         "android_client_info": {
           "package_name": "com.example.mobile_app"
         }
       },
-      "oauth_client": [],
+      "oauth_client": [
+        {
+          "client_id": "815769988696-l24f65h3nojrpc23c78lnos2hp0vpb9s.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.mobile_app",
+            "certificate_hash": "b8b4069272894b1bb527d6b89ca9ca3648900dff"
+          }
+        },
+        {
+          "client_id": "815769988696-5c7bivpt4dj4gge6cf83oermojuoadql.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
       "api_key": [
         {
-          "current_key": "AIzaSyBSlCGVvydKNAif4X1cI3_WT4R5KBWZ4zk"
+          "current_key": "AIzaSyD2HiFQTCa2McqcHQX952Lu3hFWZBqRDKg"
         }
       ],
       "services": {
         "appinvite_service": {
-          "other_platform_oauth_client": []
+          "other_platform_oauth_client": [
+            {
+              "client_id": "815769988696-5c7bivpt4dj4gge6cf83oermojuoadql.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
         }
       }
     }
